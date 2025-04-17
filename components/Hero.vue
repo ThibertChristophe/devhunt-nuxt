@@ -22,11 +22,11 @@
             <div class="relative">
               <input type="text" name="keyword" placeholder="Search for jobs, skills, companies..."
                 class="w-full px-4 py-3 pr-24 rounded-lg bg-gray-800/50 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" />
-              <button type="submit"
-                class="cursor-pointer absolute right-1.5 top-1/2 -translate-y-1/2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-1.5 rounded-md flex items-center">
+              <UButton type="submit" color="primary"
+                class="cursor-pointer absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-1.5 flex items-center">
                 <UIcon name="i-lucide-search" class="size-5 mr-3" />
                 <span>Search</span>
-              </button>
+              </UButton>
             </div>
           </form>
         </div>
