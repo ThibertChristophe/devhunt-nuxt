@@ -12,5 +12,8 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
 
-  modules: ["@nuxt/eslint", "@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@nuxt/ui", "@nuxt/test-utils", "motion-v/nuxt" ],
+  modules: ["@nuxt/eslint", "@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@nuxt/ui-pro", "@nuxt/test-utils", "motion-v/nuxt"],
+  uiPro: {
+    license: process.env.MY_ENVIRONMENT_VARIABLE
+  }
 });

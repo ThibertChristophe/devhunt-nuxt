@@ -1,101 +1,90 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+    import { ref } from 'vue';
 
+    // Programming languages data
+    const languages = ref([
+        {
+            name: "JavaScript",
+            color: "bg-yellow-500/20 border-yellow-500/50",
+            textColor: "text-yellow-400",
+        },
+        {
+            name: "TypeScript",
+            color: "bg-blue-500/20 border-blue-500/50",
+            textColor: "text-blue-400",
+        },
+        {
+            name: "Python",
+            color: "bg-green-500/20 border-green-500/50",
+            textColor: "text-green-400",
+        },
+        {
+            name: "Java",
+            color: "bg-orange-500/20 border-orange-500/50",
+            textColor: "text-orange-400",
+        },
+        {
+            name: "C#",
+            color: "bg-purple-500/20 border-purple-500/50",
+            textColor: "text-purple-400",
+        },
+        {
+            name: "PHP",
+            color: "bg-indigo-500/20 border-indigo-500/50",
+            textColor: "text-indigo-400",
+        },
+        {
+            name: "Ruby",
+            color: "bg-red-500/20 border-red-500/50",
+            textColor: "text-red-400",
+        },
+        {
+            name: "Go",
+            color: "bg-cyan-500/20 border-cyan-500/50",
+            textColor: "text-cyan-400",
+        },
+        {
+            name: "Swift",
+            color: "bg-orange-500/20 border-orange-500/50",
+            textColor: "text-orange-400",
+        },
+        {
+            name: "Kotlin",
 
+            color: "bg-purple-500/20 border-purple-500/50",
+            textColor: "text-purple-400",
+        },
+        {
+            name: "SQL",
 
-// Programming languages data
-const languages = ref([
-    {
-        name: "JavaScript",
+            color: "bg-blue-500/20 border-blue-500/50",
+            textColor: "text-blue-400",
+        },
+        {
+            name: "HTML/CSS",
 
-        color: "bg-yellow-500/20 border-yellow-500/50",
-        textColor: "text-yellow-400",
-    },
-    {
-        name: "TypeScript",
+            color: "bg-pink-500/20 border-pink-500/50",
+            textColor: "text-pink-400",
+        },
+        {
+            name: "React",
 
-        color: "bg-blue-500/20 border-blue-500/50",
-        textColor: "text-blue-400",
-    },
-    {
-        name: "Python",
+            color: "bg-blue-400/20 border-blue-400/50",
+            textColor: "text-blue-300",
+        },
+        {
+            name: "Node.js",
 
-        color: "bg-green-500/20 border-green-500/50",
-        textColor: "text-green-400",
-    },
-    {
-        name: "Java",
+            color: "bg-green-500/20 border-green-500/50",
+            textColor: "text-green-400",
+        },
+        {
+            name: "Vue.js",
 
-        color: "bg-orange-500/20 border-orange-500/50",
-        textColor: "text-orange-400",
-    },
-    {
-        name: "C#",
-
-        color: "bg-purple-500/20 border-purple-500/50",
-        textColor: "text-purple-400",
-    },
-    {
-        name: "PHP",
-
-        color: "bg-indigo-500/20 border-indigo-500/50",
-        textColor: "text-indigo-400",
-    },
-    {
-        name: "Ruby",
-
-        color: "bg-red-500/20 border-red-500/50",
-        textColor: "text-red-400",
-    },
-    {
-        name: "Go",
-
-        color: "bg-cyan-500/20 border-cyan-500/50",
-        textColor: "text-cyan-400",
-    },
-    {
-        name: "Swift",
-
-        color: "bg-orange-500/20 border-orange-500/50",
-        textColor: "text-orange-400",
-    },
-    {
-        name: "Kotlin",
-
-        color: "bg-purple-500/20 border-purple-500/50",
-        textColor: "text-purple-400",
-    },
-    {
-        name: "SQL",
-
-        color: "bg-blue-500/20 border-blue-500/50",
-        textColor: "text-blue-400",
-    },
-    {
-        name: "HTML/CSS",
-
-        color: "bg-pink-500/20 border-pink-500/50",
-        textColor: "text-pink-400",
-    },
-    {
-        name: "React",
-
-        color: "bg-blue-400/20 border-blue-400/50",
-        textColor: "text-blue-300",
-    },
-    {
-        name: "Node.js",
-
-        color: "bg-green-500/20 border-green-500/50",
-        textColor: "text-green-400",
-    },
-    {
-        name: "Vue.js",
-
-        color: "bg-green-400/20 border-green-400/50",
-        textColor: "text-green-300",
-    },
-]);
+            color: "bg-green-400/20 border-green-400/50",
+            textColor: "text-green-300",
+        },
+    ]);
 </script>
 
 <template>

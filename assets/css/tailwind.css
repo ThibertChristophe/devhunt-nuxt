@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@nuxt/ui";
+@import "@nuxt/ui-pro";
 
 
 @theme static {
@@ -18,3 +18,8 @@
   --ui-bg: var(--ui-color-neutral-950);
   --ui-border: var(--ui-color-neutral-900);
 } */
+
+/* Cibler le texte des boutons à l'intérieur (si ce sont des UButton) */
+.nui-auth-form .nui-button {
+  --button-text-color: #ffffff !important; /* Variable interne de UButton */
+}

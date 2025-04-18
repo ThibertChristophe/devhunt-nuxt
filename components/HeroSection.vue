@@ -1,5 +1,10 @@
 <template>
   <div class="relative min-h-[calc(100vh-76px)] flex items-center">
+    <!-- Ambient background with moving particles -->
+    <div class="h-full w-full absolute inset-0 z-0">
+      <SparklesCore id="tsparticlesfullpage" background="transparent" :min-size="0.6" :max-size="1.4"
+        :particle-density="2" class="w-full h-full" particle-color="#FFFFFF" />
+    </div>
     <div class="container mx-auto px-6 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
         <div>
