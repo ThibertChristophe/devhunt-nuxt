@@ -12,6 +12,7 @@
   --ui-primary: #9810fa;
   --ui-text: #ffffff;
   --ui-text-muted: #ffffff;
+  --ui-header-height: --spacing(16);
 }
 
 /* .dark {

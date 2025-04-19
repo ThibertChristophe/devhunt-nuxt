@@ -107,8 +107,8 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 ">
                 <div v-for="language in languages" :key="language.name">
                     <div
-                        :class="`${language.color}m-1 flex items-center justify-center flex-col border border-gray-700 p-6 rounded-lg backdrop-blur-sm hover:scale-105 transition-transform cursor-pointer`">
-                        <div :class="`mb-2 ${language.textColor}`" />
+                        :class="`border ${language.color} m-1 flex items-center justify-center flex-col p-6 rounded-lg backdrop-blur-sm hover:scale-105 transition-transform cursor-pointer`">
+                        <UIcon name="i-lucide-code" :class="`size-7 mb-2 ${language.textColor}`" />
                         <span class="text-white font-medium">{{ language.name }}</span>
                         <span
                             class="mt-2 bg-black/30 text-gray-300 border-gray-700 text-xs px-2 py-1 rounded-full border">

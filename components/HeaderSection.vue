@@ -1,6 +1,9 @@
 <script setup lang="ts">
   import * as z from 'zod'
-  import type { FormSubmitEvent } from '@nuxt/ui'
+  import type { FormSubmitEvent, NavigationMenuItem } from '@nuxt/ui'
+
+
+  const route = useRoute()
 
   const toast = useToast()
 
@@ -39,23 +42,36 @@
   function onSubmit(payload: FormSubmitEvent<Schema>) {
     console.log('Submitted', payload)
   }
+
+
+  const items = computed<NavigationMenuItem[]>(() => [
+    {
+      label: 'Find a job',
+      to: '/jobs',
+      active: route.path.startsWith('/jobs')
+    },
+    {
+      label: 'Find a company',
+      to: '/companies',
+      active: route.path.startsWith('/companies')
+    },
+    {
+      label: 'For recruiters',
+      to: '/'
+    },
+
+  ])
 </script>
 
 <template>
-  <header class="fixed top-0 z-50 w-full border-b border-white/10 bg-black/90 backdrop-blur-md p-4">
-    <nav class="flex items-center justify-between">
-      <div>Devhunt</div>
-      <ul class="flex space-x-10">
-        <li>
-          <ULink to="/" class="hover:text-purple-500">Home</ULink>
-        </li>
-        <li>
-          <ULink to="/jobs" class="hover:text-purple-500">Find a job</ULink>
-        </li>
-        <li>
-          <ULink to="/companies" class="hover:text-purple-500">Find company</ULink>
-        </li>
-      </ul>
+  <UHeader to="/" class="fixed top-0 z-50 w-full border-b border-white/10 bg-black/90 backdrop-blur-md p-4">
+    <template #title>
+      <div>DevHunt</div>
+    </template>
+
+    <UNavigationMenu :items="items" />
+
+    <template #right>
       <div class="space-x-2 flex items-center">
         <UButton icon="i-lucide-rocket" color="primary" size="lg" class="text-white cursor-pointer">
           Get Started
@@ -74,6 +90,6 @@
           </template>
         </UModal>
       </div>
-    </nav>
-  </header>
+    </template>
+  </UHeader>
 </template>
