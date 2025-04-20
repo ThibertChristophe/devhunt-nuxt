@@ -1,5 +1,5 @@
 <template>
-  <div class="relative min-h-[calc(100vh-76px)] pt-20 px-8">
+  <div className="min-h-screen bg-black/[0.96] antialiased">
     <UInput v-model="query" type="text" name="keyword" placeholder="Search for jobs, skills, companies..."
       icon="i-lucide-search" />
     <div v-if="error" class="text-red-500">
