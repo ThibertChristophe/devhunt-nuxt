@@ -44,18 +44,18 @@
 </script>
 
 <template>
-  <div class="fixed top-0 z-50 w-full border-b border-white/10 bg-black/90 backdrop-blur-md">
+  <header class="fixed top-0 z-50 w-full border-b border-white/10 bg-black/90 backdrop-blur-md">
     <nav class="flex items-center justify-between px-6 py-4
-      backdrop-blur-sm z-100">
+      backdrop-blur-sm z-100 border-white/10 border-b">
 
       <div>DevHunt</div>
 
       <div class="hidden md:flex items-center space-x-8">
         <NavLink to="/jobs">Find a job</NavLink>
         <NavLink to="/companies">Find a Company</NavLink>
-        <NavLink v-if="false" to="/for-recruiters">For Recruiter</NavLink>
+        <NavLink v-if="true" to="/">For Recruiter</NavLink>
         <NavLink v-if="false" to="/candidate/applications">My Applications</NavLink>
-        <NavLink to="/recruiter/jobs">Manage Jobs</NavLink>
+        <NavLink v-if="false" to="/recruiter/jobs">Manage Jobs</NavLink>
 
       </div>
 
@@ -78,5 +78,5 @@
         </UModal>
       </div>
     </nav>
-  </div>
+  </header>
 </template>

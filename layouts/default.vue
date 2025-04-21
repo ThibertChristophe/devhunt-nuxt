@@ -7,6 +7,5 @@
       </main>
       <FooterSection />
     </div>
-
   </div>
 </template>

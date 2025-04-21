@@ -5,7 +5,7 @@
 
         <div class="space-y-4 lg:col-span-2">
           <div class="flex items-center space-x-2">
-            <Bot class="h-8 w-8 text-purple-500" />
+
             <span class="text-white font-medium text-xl">DevHunt</span>
           </div>
           <p class="text-gray-400 max-w-xs">
@@ -14,19 +14,19 @@
           </p>
           <div class="flex space-x-4">
             <ULink href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
-              <Github class="h-5 w-5" />
+              <UIcon name="i-lucide-github" class="h-5 w-5" />
               <span class="sr-only">GitHub</span>
             </ULink>
             <ULink href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
-              <Twitter class="h-5 w-5" />
+              <UIcon name="i-lucide-twitter" class="h-5 w-5" />
               <span class="sr-only">Twitter</span>
             </ULink>
             <ULink href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
-              <ULinkedin class="h-5 w-5" />
+              <UIcon name="i-lucide-linkedin" class="h-5 w-5" />
               <span class="sr-only">ULinkedIn</span>
             </ULink>
             <ULink href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
-              <Instagram class="h-5 w-5" />
+              <UIcon name="i-lucide-instagram" class="h-5 w-5" />
               <span class="sr-only">Instagram</span>
             </ULink>
           </div>
@@ -108,7 +108,7 @@
 
           </form>
           <div class="flex items-center text-gray-400">
-            <Mail class="h-4 w-4 mr-2" />
+            <UIcon name="i-lucide-mail" class="h-4 w-4 mr-2" />
             <a href="mailto:contact@devhunt.com" class="hover:text-purple-500 transition-colors">
               contact@devhunt.com
             </a>

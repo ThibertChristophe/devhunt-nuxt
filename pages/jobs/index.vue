@@ -1,5 +1,12 @@
 <template>
   <div class="min-h-screen bg-black/[0.96] antialiased">
+    <!-- Ambient background with moving particles -->
+    <div class="h-full w-full absolute inset-0 z-0">
+      <SparklesCore id="tsparticlesfullpage" background="transparent" :min-size="0.6" :max-size="1.4"
+        :particle-density="2" class="w-full h-full" particle-color="#FFFFFF" />
+    </div>
+
+    <!-- The page -->
     <div class="relative z-10 container mx-auto px-4 py-8">
       <div class="mb-8">
         <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
@@ -28,7 +35,7 @@
             <UButton label="Location" color="neutral" variant="subtle"
               class="h-[50px] bg-gray-800/50 border-gray-700 text-white hover:bg-gray-700" icon="i-lucide-map-pin" />
             <template #body>
-              <Placeholder class="h-full" />
+
               <UCheckbox label="Bruxelles" />
             </template>
           </USlideover>
@@ -40,7 +47,7 @@
             <UButton label="Skills" color="neutral" variant="subtle"
               class="h-[50px] bg-gray-800/50 border-gray-700 text-white hover:bg-gray-700" icon="i-lucide-code" />
             <template #body>
-              <Placeholder class="h-full" />
+
               <UCheckbox label="Ruby" />
             </template>
           </USlideover>
@@ -60,34 +67,26 @@
       <div class="flex flex-wrap gap-2 mb-4">
         <!-- v-for location -->
         <div key={location}>
-          <Badge variant="outline" class="cursor-pointer bg-gray-800/50 text-white border-gray-700 px-3 py-1">
-            <MapPin class="mr-1 h-3 w-3" />
+          <UBadge variant="outline" icon="i-lucide-map-pin" trailing-icon="i-lucide-x"
+            class="rounded-full cursor-pointer bg-gray-800/50 text-white border-gray-700 px-3 py-1">
             {location}
-            <button class="ml-1 hover:text-gray-300">
-              <X class="h-3 w-3" />
-            </button>
-          </Badge>
+          </UBadge>
         </div>
 
         <!-- v-for type -->
         <div key={type}>
-          <Badge variant="outline" class="cursor-pointer bg-gray-800/50 text-white border-gray-700 px-3 py-1">
-            <Briefcase class="mr-1 h-3 w-3" />
+          <UBadge variant="outline" icon="i-lucide-briefcase-business" trailing-icon="i-lucide-x"
+            class="rounded-full cursor-pointer bg-gray-800/50 text-white border-gray-700 px-3 py-1">
             {selectedType}
-            <button class="ml-1 hover:text-gray-300">
-              <X class="h-3 w-3" />
-            </button>
-          </Badge>
+          </UBadge>
         </div>
 
-        <div key={lang}>
-          <Badge variant="outline" class="bg-gray-800/50 text-white border-gray-700 px-3 py-1 cursor-pointer">
-            <Code class="mr-1 h-3 w-3" />
-            {lang}
-            <button class="ml-1 hover:text-gray-300">
-              <X class="h-3 w-3" />
-            </button>
-          </Badge>
+        <!-- v-for skills -->
+        <div key={skill}>
+          <UBadge variant="outline" icon="i-lucide-code" trailing-icon="i-lucide-x"
+            class="rounded-full cursor-pointer bg-gray-800/50 text-white border-gray-700 px-3 py-1">
+            {skill}
+          </UBadge>
         </div>
       </div>
 
@@ -99,7 +98,8 @@
         <div class="flex items-center gap-4">
           <!-- View mode -->
           <div class="flex items-center bg-gray-800/50 rounded-md p-1 gap-2">
-            <UButton icon="i-lucide-layout-list" class="p-1.5 rounded bg-purple-600 text-white" />
+            <UButton class="p-1.5 rounded bg-purple-600 text-white" icon="i-lucide-layout-list"
+              @click="viewMode = 'list'" />
             <UButton icon="i-lucide-list" class="bg-transparent text-gray-400 hover:text-white" />
             <UButton icon="i-lucide-layout-grid" class="bg-transparent text-gray-400 hover:text-white" />
           </div>
@@ -126,12 +126,13 @@
             <div>{{ job.description }}</div>
 
             <template #footer>
-              <Placeholder class="h-8" />
+              Footer
             </template>
           </UCard>
         </div>
         <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
       </div>
+      <!-- No job found -->
       <div v-else class="text-center py-16 bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-800 mb-4">
           <UIcon name="i-lucide-search-x" class=" text-gray-400" size="30" />
@@ -140,7 +141,7 @@
         <p class="text-gray-400 max-w-md mx-auto">
           We couldn't find any jobs matching your criteria. Try adjusting your filters or search term.
         </p>
-        <UButton label="Clear Filters" variant="subtle" size="xl" icon="i-lucide-x" :ui="{
+        <UButton label="Clear Filters" variant="subtle" size="xl" :ui="{
           base: 'mt-4 border-purple-500 bg-purple-500/20 text-white hover:text-purple hover:bg-inherit',
         }" />
       </div>
@@ -150,6 +151,15 @@
 
 <script setup lang="ts">
   import type { JobsResponse } from '~/types/jobs';
+  const viewMode = ref('list')
+  const contractValue = ref('full_time')
+  const sortBy = ref('relevance')
+  const page = ref(1)
+  const query = ref("")
+  const { data: jobsData } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
+    query: { page, query }
+  })
+
   const contractTypes = [
     { label: 'Full Time', value: 'full_time' },
     { label: 'Part Time', value: 'part_time' },
@@ -161,12 +171,5 @@
     { label: 'Date', value: 'date' },
     { label: 'Salary', value: 'salary' },
   ]
-  const contractValue = ref('full_time')
-  const sortBy = ref('relevance')
-  const page = ref(1)
-  const query = ref("")
-  const { data: jobsData } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
-    query: { page, query }
-  })
 
 </script>
