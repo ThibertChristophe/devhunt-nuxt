@@ -119,7 +119,15 @@
         <div v-for="job in jobsData?.jobs" :key="job.id" class="relative group">
           <UCard
             class="cursor-pointer bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-lg p-6 hover:border-purple-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/10">
-            {{ job.title }}
+            <template #header>
+              <span>{{ job.title }}</span>
+            </template>
+
+            <div>{{ job.description }}</div>
+
+            <template #footer>
+              <Placeholder class="h-8" />
+            </template>
           </UCard>
         </div>
         <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
