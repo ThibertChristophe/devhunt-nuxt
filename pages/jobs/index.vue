@@ -114,20 +114,29 @@
         </div>
       </div>
 
-
-      <div v-if="error" class="text-red-500">
-        {{ error }}
-      </div>
-      <div v-else>
-        <UCard v-for="job in jobsData?.jobs" :key="job.id">
-          {{ job.title }}
-        </UCard>
-
+      <!-- Job listing -->
+      <div v-if="jobsData?.jobs?.length" class="space-y-6">
+        <div v-for="job in jobsData?.jobs" :key="job.id" class="relative group">
+          <UCard
+            class="cursor-pointer bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-lg p-6 hover:border-purple-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/10">
+            {{ job.title }}
+          </UCard>
+        </div>
         <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
       </div>
-
+      <div v-else class="text-center py-16 bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-800 mb-4">
+          <UIcon name="i-lucide-search-x" class=" text-gray-400" size="30" />
+        </div>
+        <h3 class="text-xl font-medium text-white mb-2">No jobs found</h3>
+        <p class="text-gray-400 max-w-md mx-auto">
+          We couldn't find any jobs matching your criteria. Try adjusting your filters or search term.
+        </p>
+        <UButton label="Clear Filters" variant="subtle" size="xl" icon="i-lucide-x" :ui="{
+          base: 'mt-4 border-purple-500 bg-purple-500/20 text-white hover:text-purple hover:bg-inherit',
+        }" />
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -148,7 +157,7 @@
   const sortBy = ref('relevance')
   const page = ref(1)
   const query = ref("")
-  const { data: jobsData, error } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
+  const { data: jobsData } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
     query: { page, query }
   })
 
