@@ -102,15 +102,20 @@
       <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
         :transition="{ duration: 0.5, delay: 0.2 }" class="mb-4 flex justify-between items-center">
         <p class="text-gray-400">
-          {filteredJobs.length} {filteredJobs.length === 1 ? "job" : "jobs"} found
+          {{ jobsData?.jobs?.length }} {{ jobsData?.jobs?.length === 1 ? "job" : "jobs" }} found
         </p>
         <div class="flex items-center gap-4">
           <!-- View mode -->
           <div class="flex items-center bg-gray-800/50 rounded-md p-1 gap-2">
-            <UButton class="p-1.5 rounded bg-purple-600 text-white" icon="i-lucide-layout-list"
-              @click="viewMode = 'list'" />
-            <UButton icon="i-lucide-list" class="bg-transparent text-gray-400 hover:text-white" />
-            <UButton icon="i-lucide-layout-grid" class="bg-transparent text-gray-400 hover:text-white" />
+            <UButton :class="['p-1.5 rounded',
+              viewMode === 'list' ? 'bg-purple-600 text-white' : 'bg-transparent text-gray-400 hover:text-white'
+            ]" icon="i-lucide-layout-list" @click="viewMode = 'list'" />
+            <UButton :class="['p-1.5 rounded',
+              viewMode === 'compact' ? 'bg-purple-600 text-white' : 'bg-transparent text-gray-400 hover:text-white'
+            ]" icon="i-lucide-list" @click="viewMode = 'compact'" />
+            <UButton :class="['p-1.5 rounded',
+              viewMode === 'grid' ? 'bg-purple-600 text-white' : 'bg-transparent text-gray-400 hover:text-white'
+            ]" icon="i-lucide-layout-grid" @click="viewMode = 'grid'" />
           </div>
           <!-- Combo By : -->
           <div class="flex items-center text-gray-400 text-sm">
@@ -124,23 +129,17 @@
       </motion.div>
 
       <!-- Job listing -->
-      <div v-if="jobsData?.jobs?.length" class="space-y-6">
-        <div v-for="job in jobsData?.jobs" :key="job.id" class="relative group">
-          <UCard
-            class="cursor-pointer bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-lg p-6 hover:border-purple-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/10">
-            <template #header>
-              <span>{{ job.title }}</span>
-            </template>
-
-            <div>{{ job.description }}</div>
-
-            <template #footer>
-              Footer
-            </template>
-          </UCard>
+      <div v-if="jobsData?.jobs?.length"
+        :class="[viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : viewMode === 'compact' ? 'space-y-3' : 'space-y-6']">
+        <div v-for="(job, index) in jobsData?.jobs" :key="job.id" class="relative group">
+          <JobCard :job="job" :view-mode="viewMode" :index="index" />
         </div>
-        <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
+
+        <div class="mt-8 flex justify-between items-center">
+          <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
+        </div>
       </div>
+
       <!-- No job found -->
       <motion.div v-else :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ duration: 0.5 }"
         class="text-center py-16 bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl">
@@ -161,15 +160,25 @@
 
 <script setup lang="ts">
   import { motion } from "motion-v";
+  import JobCard from "~/components/JobCard.vue";
   import type { JobsResponse } from '~/types/jobs';
-  const viewMode = ref('list')
-  const contractValue = ref('full_time')
-  const sortBy = ref('relevance')
-  const page = ref(1)
-  const query = ref("")
-  const { data: jobsData } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
+  const viewMode = ref<string>('list')
+  const contractValue = ref<string>('full_time')
+  const sortBy = ref<string>('relevance')
+  const page = ref<number>(1)
+  const query = ref<string>("")
+
+  const { data: jobsData, refresh } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
     query: { page, query }
   })
+
+  watch(
+    () => [query.value],
+    () => {
+      page.value = 1
+      refresh()
+    }
+  )
 
   const contractTypes = [
     { label: 'Full Time', value: 'full_time' },

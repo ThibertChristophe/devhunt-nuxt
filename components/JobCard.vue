@@ -11,52 +11,53 @@
         <div>
           <h2 :class="['font-bold text-white', viewMode === 'compact' ? 'text-lg' : 'text-xl']">{{ job.title }}</h2>
           <div class="flex items-center mt-1 text-gray-400">
-            <Building class="h-4 w-4 mr-1" />
+            <UIcon name="i-lucide-building" class="h-4 w-4 mr-1" />
             <span>{{ job.company }}</span>
-            <span class="mx-2">•</span>
-            <MapPin class="h-4 w-4 mr-1" />
-            <span>{{ job.location.name }}</span>
+            <div v-if="job.location">
+              <span class="mx-2">•</span>
+              <UIcon name="i-lucide-map-pin" class="h-4 w-4 mr-1" />
+              <span>{{ job.location.name }}</span>
+            </div>
           </div>
         </div>
         <div :class="[viewMode === 'compact' ? '' : 'mt-2 md:mt-0']">
-          <Badge class=" bg-purple-600/80 hover:bg-purple-600 text-white">
-            {formatSalary(job.salary_min)} - {formatSalary(job.salary_max)}€
-          </Badge>
+          <UBadge class="rounded-full bg-purple-600/80 hover:bg-purple-600 text-white">
+            {{ formatSalary(job.salary_min) }} - {{ formatSalary(job.salary_max) }}€
+          </UBadge>
         </div>
       </div>
 
       <p v-if="viewMode === 'list'" class="text-gray-100 mb-4">{{ job.description }}</p>
 
-
       <div v-if="viewMode !== 'compact'" class="flex flex-wrap gap-2 mb-2">
-        <UBadge v-for="skill in job.skills" :key="skill.name" variant="outline" class="text-white border-gray-600">
+        <UBadge v-for="skill in job.skills" :key="skill.name" variant="outline" class="rounded-full text-white"
+          :style="{ borderColor: skill.color }">
           {{ skill.name }}
         </UBadge>
       </div>
 
-
       <div
         :class="['flex', viewMode === 'compact' ? 'justify-between items-center' : 'flex-col sm:flex-row justify-between items-start sm:items-center']">
         <div class="flex items-center text-gray-400 text-sm mb-2 sm:mb-0">
-          <Briefcase class="h-4 w-4 mr-1" />
+          <UIcon name="i-lucide-briefcase-business" class="h-4 w-4 mr-1" />
           <span>{{ job.job_type }}</span>
           <span class="mx-2">•</span>
-          <Clock class="h-4 w-4 mr-1" />
+          <UIcon name="i-lucide-clock" class="h-4 w-4 mr-1" />
           <span>Posted {{ job.posted }}</span>
         </div>
-        <Button v-if="viewMode === 'compact'" class="bg-purple-600 hover:bg-purple-700 text-white">Apply Now</Button>
+        <UButton v-if="viewMode !== 'compact'" label="Apply Now" class="bg-purple-600 hover:bg-purple-700 text-white" />
       </div>
 
       <div v-if="viewMode === 'compact'" class="flex flex-wrap gap-1 mt-2">
         <div v-for="skill in job.skills.slice(0, 3)" :key="skill.name">
-          <Badge variant="outline" class="text-white border-gray-600 text-xs py-0">
+          <UBadge variant="outline" class="rounded-full text-white border-gray-600 text-xs py-0">
             {{ skill.name }}
-          </Badge>
+          </UBadge>
         </div>
         <div v-if="job.skills.length > 3">
-          <Badge variant="outline" class="text-white border-gray-600 text-xs py-0">
+          <UBadge variant="outline" class="rounded-full text-white border-gray-600 text-xs py-0">
             +{{ job.skills.length - 3 }}
-          </Badge>
+          </UBadge>
         </div>
       </div>
     </div>
@@ -79,4 +80,8 @@
       default: 0
     }
   })
+
+  const formatSalary = (value: number): string => {
+    return `${Math.round(value / 1000)}k`;
+  }
 </script>
