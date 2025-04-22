@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import * as z from 'zod'
+  import { motion } from 'motion-v'
   import type { FormSubmitEvent } from '@nuxt/ui'
 
 
@@ -45,7 +46,7 @@
 
 <template>
   <header class="fixed top-0 z-50 w-full border-b border-white/10 bg-black/90 backdrop-blur-md">
-    <nav class="flex items-center justify-between px-6 py-4
+    <motion.nav :initial="{ y: -100 }" :animate="{ y: 0 }" class="flex items-center justify-between px-6 py-4
       backdrop-blur-sm z-100 border-white/10 border-b">
 
       <div>DevHunt</div>
@@ -77,6 +78,6 @@
           </template>
         </UModal>
       </div>
-    </nav>
+    </motion.nav>
   </header>
 </template>
