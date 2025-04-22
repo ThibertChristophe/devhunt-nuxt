@@ -8,16 +8,21 @@
 
     <!-- The page -->
     <div class="relative z-10 container mx-auto px-4 py-8">
-      <div class="mb-8">
+      <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{ duration: 0.5 }"
+        class="mb-8">
         <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
           Find Your
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">Dream</span>
           Developer Job
         </h1>
         <p class="text-gray-400">Browse through hundreds of opportunities for tech professionals</p>
-      </div>
+      </motion.div>
 
-      <div class="mb-8">
+      <!-- Search and filters section -->
+      <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{
+        duration: 0.5, delay:
+          0.1
+      }" class="mb-8">
         <div class="flex flex-col md:flex-row gap-4 mb-6">
           <div class="relative flex-grow">
             <!-- Searchbar -->
@@ -61,37 +66,41 @@
           <UButton v-if="true" label="Clear Filters" variant="subtle" icon="i-lucide-x"
             class="h-[50px] text-gray-400 hover:text-purple-500" />
         </div>
-      </div>
+      </motion.div>
 
       <!-- Active filter section -->
-      <div class="flex flex-wrap gap-2 mb-4">
+      <motion.div :initial="{ opacity: 0, y: -10 }" :animate="{ opacity: 1, y: 0 }" class="flex flex-wrap gap-2 mb-4">
         <!-- v-for location -->
-        <div key={location}>
+        <motion.div key={location} :initial="{ opacity: 0, scale: 0.8 }" :animate="{ opacity: 1, scale: 1 }"
+          :exit="{ opacity: 0, scale: 0.8 }">
           <UBadge variant="outline" icon="i-lucide-map-pin" trailing-icon="i-lucide-x"
             class="rounded-full cursor-pointer bg-gray-800/50 text-white border-gray-700 px-3 py-1">
             {location}
           </UBadge>
-        </div>
+        </motion.div>
 
         <!-- v-for type -->
-        <div key={type}>
+        <motion.div key={type} :initial="{ opacity: 0, scale: 0.8 }" :animate="{ opacity: 1, scale: 1 }"
+          :exit="{ opacity: 0, scale: 0.8 }">
           <UBadge variant="outline" icon="i-lucide-briefcase-business" trailing-icon="i-lucide-x"
             class="rounded-full cursor-pointer bg-gray-800/50 text-white border-gray-700 px-3 py-1">
             {selectedType}
           </UBadge>
-        </div>
+        </motion.div>
 
         <!-- v-for skills -->
-        <div key={skill}>
+        <motion.div key={skill} :initial="{ opacity: 0, scale: 0.8 }" :animate="{ opacity: 1, scale: 1 }"
+          :exit="{ opacity: 0, scale: 0.8 }">
           <UBadge variant="outline" icon="i-lucide-code" trailing-icon="i-lucide-x"
             class="rounded-full cursor-pointer bg-gray-800/50 text-white border-gray-700 px-3 py-1">
             {skill}
           </UBadge>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <!-- Number of result, View Mode & By : combo -->
-      <div class="mb-4 flex justify-between items-center">
+      <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
+        :transition="{ duration: 0.5, delay: 0.2 }" class="mb-4 flex justify-between items-center">
         <p class="text-gray-400">
           {filteredJobs.length} {filteredJobs.length === 1 ? "job" : "jobs"} found
         </p>
@@ -112,7 +121,7 @@
               }" />
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <!-- Job listing -->
       <div v-if="jobsData?.jobs?.length" class="space-y-6">
@@ -133,7 +142,8 @@
         <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
       </div>
       <!-- No job found -->
-      <div v-else class="text-center py-16 bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl">
+      <motion.div v-else :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ duration: 0.5 }"
+        class="text-center py-16 bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-800 mb-4">
           <UIcon name="i-lucide-search-x" class=" text-gray-400" size="30" />
         </div>
@@ -144,12 +154,13 @@
         <UButton label="Clear Filters" variant="subtle" size="xl" :ui="{
           base: 'mt-4 border-purple-500 bg-purple-500/20 text-white hover:text-purple hover:bg-inherit',
         }" />
-      </div>
+      </motion.div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { motion } from "motion-v";
   import type { JobsResponse } from '~/types/jobs';
   const viewMode = ref('list')
   const contractValue = ref('full_time')
