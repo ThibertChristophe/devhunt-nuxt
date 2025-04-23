@@ -1,0 +1,1 @@
+Migrate to Nuxt 4 with command : npx codemod@latest nuxt/4/file-structure
