@@ -102,7 +102,7 @@
       <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
         :transition="{ duration: 0.5, delay: 0.2 }" class="mb-4 flex justify-between items-center">
         <p class="text-gray-400">
-          {{ jobsData?.jobs?.length }} {{ jobsData?.jobs?.length === 1 ? "job" : "jobs" }} found
+          {{ jobsCountText }} 
         </p>
         <div class="flex items-center gap-4">
           <!-- View mode -->
@@ -168,6 +168,11 @@
   const page = ref<number>(1)
   const query = ref<string>("")
 
+  const jobsCountText = computed(() => {
+    const count = jobsData.value?.jobs?.length || 0
+    return `${count} ${count === 1 ? 'job' : 'jobs'} found`
+  })
+  
   const { data: jobsData, refresh } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
     query: { page, query }
   })
@@ -180,9 +185,8 @@
     }
   )*/
 
-  watch(query, () => {
+  watch(jobsData, () => {
       page.value = 1
-      refresh()
   })
   
 
