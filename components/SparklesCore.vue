@@ -109,16 +109,18 @@
   });
 
   onUnmounted(() => {
-    if (animationFrameId.value) {
-      cancelAnimationFrame(animationFrameId.value);
-    }
-
-    // Remove canvas
-    const container = document.getElementById(props.id);
-    if (container && canvas.value) {
-      container.removeChild(canvas.value);
-    }
-
-    window.removeEventListener('resize', () => { });
-  });
+  // Annuler l'animation
+  if (animationFrameId.value) {
+    cancelAnimationFrame(animationFrameId.value);
+  }
+  
+  // Supprimer l'écouteur d'événement de redimensionnement
+  window.removeEventListener('resize', resizeCanvas);
+  
+  // Supprimer le canvas
+  if (canvas.value && canvas.value.parentElement) {
+    canvas.value.parentElement.removeChild(canvas.value);
+  }
+});
+  
 </script>
