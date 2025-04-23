@@ -172,13 +172,19 @@
     query: { page, query }
   })
 
-  watch(
+  /*watch(
     () => [query.value],
     () => {
       page.value = 1
       refresh()
     }
-  )
+  )*/
+
+  watch(query, () => {
+      page.value = 1
+      refresh()
+  })
+  
 
   const contractTypes = [
     { label: 'Full Time', value: 'full_time' },
