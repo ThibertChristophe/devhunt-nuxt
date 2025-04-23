@@ -177,6 +177,8 @@
     query: { page, query }
   })
 
+  // const { data: candidates } = await useFetch('/api/candidates')
+  // console.log(candidates.value)
   /*watch(
     () => [query.value],
     () => {

@@ -1,0 +1,1 @@
+ALTER TABLE "candidates" ALTER COLUMN "avatar" DROP NOT NULL;
