@@ -185,7 +185,7 @@
     }
   )*/
 
-  watch(jobsData, () => {
+  watch(query, () => {
       page.value = 1
   })
   
