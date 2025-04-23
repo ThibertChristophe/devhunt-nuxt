@@ -1,25 +1,25 @@
-import prisma from '~/server/lib/prisma'
+// import prisma from "~/lib/prisma"
 
-export default defineEventHandler(async (event) => {
-  const id = parseInt(getRouterParam(event, 'id') || '')
+// export default defineEventHandler(async (event) => {
+//   const id = parseInt(getRouterParam(event, 'id') || '')
 
-  if (isNaN(id)) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'ID invalide'
-    })
-  }
+//   if (isNaN(id)) {
+//     throw createError({
+//       statusCode: 400,
+//       statusMessage: 'ID invalide'
+//     })
+//   }
 
-  const job = await prisma.job.findUnique({
-    where: { id }
-  })
+//   const job = await prisma.job.findUnique({
+//     where: { id }
+//   })
 
-  if (!job) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Job non trouvé'
-    })
-  }
+//   if (!job) {
+//     throw createError({
+//       statusCode: 404,
+//       statusMessage: 'Job non trouvé'
+//     })
+//   }
 
-  return job
-})
+//   return job
+// })

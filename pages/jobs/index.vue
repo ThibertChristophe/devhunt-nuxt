@@ -102,7 +102,7 @@
       <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
         :transition="{ duration: 0.5, delay: 0.2 }" class="mb-4 flex justify-between items-center">
         <p class="text-gray-400">
-          {{ jobsCountText }} 
+          {{ jobsCountText }}
         </p>
         <div class="flex items-center gap-4">
           <!-- View mode -->
@@ -160,8 +160,8 @@
 
 <script setup lang="ts">
   import { motion } from "motion-v";
-  // import type { JobsResponse } from '~/types/jobs';
-  
+  import type { JobsResponse } from '~/types/jobs';
+
   const viewMode = ref<string>('list')
   const contractValue = ref<string>('full_time')
   const sortBy = ref<string>('relevance')
@@ -172,7 +172,7 @@
     const count = jobsData.value?.jobs?.length || 0
     return `${count} ${count === 1 ? 'job' : 'jobs'} found`
   })
-  
+
   const { data: jobsData } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
     query: { page, query }
   })
@@ -186,9 +186,9 @@
   )*/
 
   watch(query, () => {
-      page.value = 1
+    page.value = 1
   })
-  
+
 
   const contractTypes = [
     { label: 'Full Time', value: 'full_time' },
