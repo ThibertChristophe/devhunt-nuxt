@@ -10,16 +10,16 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const post = await prisma.post.findUnique({
+  const job = await prisma.job.findUnique({
     where: { id }
   })
 
-  if (!post) {
+  if (!job) {
     throw createError({
       statusCode: 404,
-      statusMessage: 'Post non trouvé'
+      statusMessage: 'Job non trouvé'
     })
   }
 
-  return post
+  return job
 })
