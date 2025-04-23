@@ -112,7 +112,7 @@
                         <span class="text-white font-medium">{{ language.name }}</span>
                         <span
                             class="mt-2 bg-black/30 text-gray-300 border-gray-700 text-xs px-2 py-1 rounded-full border">
-                            {{ Math.floor(Math.random() * 1000) + 100 }} jobs
+                            25 jobs
                         </span>
                     </div>
                 </div>
