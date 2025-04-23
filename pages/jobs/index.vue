@@ -160,8 +160,8 @@
 
 <script setup lang="ts">
   import { motion } from "motion-v";
-  import JobCard from "~/components/JobCard.vue";
-  import type { JobsResponse } from '~/types/jobs';
+  // import type { JobsResponse } from '~/types/jobs';
+  
   const viewMode = ref<string>('list')
   const contractValue = ref<string>('full_time')
   const sortBy = ref<string>('relevance')
