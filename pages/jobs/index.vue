@@ -173,7 +173,7 @@
     return `${count} ${count === 1 ? 'job' : 'jobs'} found`
   })
   
-  const { data: jobsData, refresh } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
+  const { data: jobsData } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
     query: { page, query }
   })
 
