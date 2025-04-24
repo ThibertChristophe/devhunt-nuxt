@@ -16,8 +16,17 @@ export const jobs = pgTable('jobs', {
   title: varchar({ length: 256 }).notNull(),
   description: text(),
   active: boolean().default(false).notNull(),
-  minSalary: integer('min_salary'),
-  maxSalary: integer('max_salary'),
+  salaryMin: integer('salary_min'),
+  salaryMax: integer('salary_max'),
   createdAt: timestamp('created_at').defaultNow(),
 })
 export type Job = typeof jobs.$inferSelect
+
+
+export const skills = pgTable('skills', {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar({ length: 256 }).notNull(),
+  color: varchar({ length: 7 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+})
+export type Skill = typeof skills.$inferSelect

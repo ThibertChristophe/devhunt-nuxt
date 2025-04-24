@@ -17,11 +17,11 @@
         </h1>
         <p class="text-gray-400">Browse through hundreds of opportunities for tech professionals</p>
       </motion.div>
-      
+
       <div>
-        {{ job }}
+        {{ jobsData }}
       </div>
-      
+
       <!-- Search and filters section -->
       <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{
         duration: 0.5, delay:
@@ -30,7 +30,7 @@
         <div class="flex flex-col md:flex-row gap-4 mb-6">
           <div class="relative flex-grow">
             <!-- Searchbar -->
-            <UInput v-model="query" type="text" name="keyword" placeholder="Search for jobs, skills, companies..."
+            <UInput v-model="search" type="text" name="keyword" placeholder="Search for jobs, skills, companies..."
               icon="i-lucide-search" :ui="{
                 base: 'w-full px-4 py-4 pr-10 rounded-lg bg-gray-800/50  border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent',
                 root: 'w-full ',
@@ -67,8 +67,8 @@
               item: 'cursor-pointer hover:bg-gray-700 hover:text-purple-500 data-[state=checked]:text-purple-500 data-[highlighted]:bg-inherit data-[highlighted]:text-white'
             }" />
 
-          <UButton v-if="true" label="Clear Filters" variant="subtle" icon="i-lucide-x"
-            class="h-[50px] text-gray-400 hover:text-purple-500" />
+          <UButton v-if="search" label="Clear Filters" variant="subtle" icon="i-lucide-x"
+            class="h-[50px] text-gray-400 hover:text-purple-500" @click="search = ''" />
         </div>
       </motion.div>
 
@@ -115,8 +115,8 @@
               viewMode === 'list' ? 'bg-purple-600 text-white' : 'bg-transparent text-gray-400 hover:text-white'
             ]" icon="i-lucide-layout-list" @click="viewMode = 'list'" />
             <UButton :class="['p-1.5 rounded',
-              viewMode === 'compact' ? 'bg-purple-600 text-white' : 'bg-transparent text-gray-400 hover:text-white'
-            ]" icon="i-lucide-list" @click="viewMode = 'compact'" />
+              viewMode === 'small' ? 'bg-purple-600 text-white' : 'bg-transparent text-gray-400 hover:text-white'
+            ]" icon="i-lucide-list" @click="viewMode = 'small'" />
             <UButton :class="['p-1.5 rounded',
               viewMode === 'grid' ? 'bg-purple-600 text-white' : 'bg-transparent text-gray-400 hover:text-white'
             ]" icon="i-lucide-layout-grid" @click="viewMode = 'grid'" />
@@ -133,11 +133,10 @@
       </motion.div>
 
       <!-- Job listing -->
-      <div v-if="jobsData?.jobs?.length"
-        :class="[viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : viewMode === 'compact' ? 'space-y-3' : 'space-y-6']">
-        <div v-for="(job, index) in jobsData?.jobs" :key="job.id" class="relative group">
-          <JobCard :job="job" :view-mode="viewMode" :index="index" />
-        </div>
+      <div v-if="jobsData && jobsData.jobs.length > 0"
+        :class="[viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : viewMode === 'small' ? 'space-y-3' : 'space-y-6']">
+
+        <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode" :index="index" />
 
         <div class="mt-8 flex justify-between items-center">
           <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
@@ -166,38 +165,22 @@
   import { motion } from "motion-v";
   import type { JobsResponse } from '~/types/jobs';
 
-  const viewMode = ref<string>('list')
+  const viewMode = ref("list")
   const contractValue = ref<string>('full_time')
   const sortBy = ref<string>('relevance')
   const page = ref<number>(1)
-  const query = ref<string>("")
+  const search = ref<string>("")
 
   const jobsCountText = computed(() => {
     const count = jobsData.value?.jobs?.length || 0
     return `${count} ${count === 1 ? 'job' : 'jobs'} found`
   })
-/*
-  const { data: jobsData } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
-    query: { page, query }
-  })
-*/
+
   const { data: jobsData } = await useFetch<JobsResponse>('/api/jobs', {
-    query: { page, query }
+    query: { page, search }
   })
 
-  const { data: job } = await useLazyFetch('/api/jobs/1')
-  
-  // const { data: candidates } = await useFetch('/api/candidates')
-  // console.log(candidates.value)
-  /*watch(
-    () => [query.value],
-    () => {
-      page.value = 1
-      refresh()
-    }
-  )*/
-
-  watch(query, () => {
+  watch(search, () => {
     page.value = 1
   })
 

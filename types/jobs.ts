@@ -26,6 +26,6 @@ export interface Pagination {
 }
 
 export interface JobsResponse {
-  jobs?: Job[]; // Le '?' indique que la propriété peut être undefined
-  pagination?: Pagination; // Le '?' indique que la propriété peut être undefined
+  jobs: Job[]; // Le '?' indique que la propriété peut être undefined
+  pagination: Pagination; // Le '?' indique que la propriété peut être undefined
 }

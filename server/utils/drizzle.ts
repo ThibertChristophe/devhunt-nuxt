@@ -6,7 +6,7 @@ export { sql, eq, and, or, ilike, asc } from 'drizzle-orm'
 export const tables = schema
 
 export function useDrizzle() {
-  return drizzle(process.env.DATABASE_URL!, { schema },);
+  return drizzle(process.env.DATABASE_URL!, { schema });
 }
 
 

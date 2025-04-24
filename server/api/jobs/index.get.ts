@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         throw result.error.issues
 
     const jobs = await useDrizzle().select().from(tables.jobs)
-        .where(result.data.search ? ilike(tables.jobs.description, `%${result.data.search}%`) : undefined)
+        .where(result.data.search ? ilike(tables.jobs.title, `%${result.data.search}%`) : undefined)
         .orderBy(asc(tables.jobs.createdAt))
         .limit(PAGE_SIZE)
         .offset((result.data.page - 1) * PAGE_SIZE);
