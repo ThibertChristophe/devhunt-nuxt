@@ -172,11 +172,16 @@
     const count = jobsData.value?.jobs?.length || 0
     return `${count} ${count === 1 ? 'job' : 'jobs'} found`
   })
-
+/*
   const { data: jobsData } = await useFetch<JobsResponse>('http://localhost:3000/api/jobs', {
     query: { page, query }
   })
+*/
+  const { data: jobsData } = await useFetch<JobsResponse>('/api/jobs', {
+    query: { page, query }
+  })
 
+  
   // const { data: candidates } = await useFetch('/api/candidates')
   // console.log(candidates.value)
   /*watch(
