@@ -1,0 +1,1 @@
+ALTER TABLE "jobs" ADD COLUMN "reference" varchar(55);

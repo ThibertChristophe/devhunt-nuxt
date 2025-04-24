@@ -6,7 +6,6 @@
         'cursor-pointer hover:border-purple-500/50 bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-lg transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/10',
         viewMode === 'small' ? 'p-3' : 'p-6'
       ]">
-        {{ viewMode }}
         <div :class="['flex justify-between',
           viewMode === 'small' ? 'items-center mb-2' : 'flex-col md:flex-row md:items-center mb-4',
           viewMode === 'small' ? 'mb-2' : 'mb-4']">
@@ -14,12 +13,12 @@
             <h2 :class="['font-bold text-white', viewMode === 'small' ? 'text-lg' : 'text-xl']">{{ job.title }}</h2>
             <div class="flex items-center mt-1 text-gray-400">
               <UIcon name="i-lucide-building" class="h-4 w-4 mr-1" />
-              <!-- <span>{{ job.company }}</span>
+              <span>{{ job.company }}</span>
               <div v-if="job.location">
                 <span class="mx-2">•</span>
                 <UIcon name="i-lucide-map-pin" class="h-4 w-4 mr-1" />
-                <span>{{ job.location.name }}</span>
-              </div> -->
+                <span>{{ job.location }}</span>
+              </div>
             </div>
           </div>
           <div :class="[viewMode === 'small' ? '' : 'mt-2 md:mt-0']">
