@@ -1,1 +1,14 @@
 Migrate to Nuxt 4 with command : npx codemod@latest nuxt/4/file-structure
+
+
+Debounce search input :
+
+npx nuxi@latest module add vueuse
+
+import { refDebounced } from '@vueuse/core'
+
+
+const input = ref('foo')
+const debounced = refDebounced(input, 1000)
+console.log(debounced.value) // 'foo'
+const { data } = await useFetch('/api/posts', { query : { debounced, page } })  <- ICI ON A NOTRE debounced AU LIEU DE NOTRE REF INPUT
