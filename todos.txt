@@ -2,12 +2,13 @@ Migrate to Nuxt 4 with command : npx codemod@latest nuxt/4/file-structure
 
 
 Debounce search input :
-
 npx nuxi@latest module add vueuse
 
 import { refDebounced } from '@vueuse/core'
-
 const query = ref('foo')
 const debounced = refDebounced(query, 1000)
 console.log(debounced.value) // 'foo'
 const { data } = await useFetch('/api/posts', { query : { query: debounced, page } })  <- ICI ON A NOTRE debounced AU LIEU DE NOTRE REF INPUT
+
+
+Test le useFetch sans await et avec lazy: true, voir si ca bloque la page ou pas
