@@ -1,5 +1,5 @@
-Migrate to Nuxt 4 with command : npx codemod@latest nuxt/4/file-structure
-
+Migrate to Nuxt 4 with command :
+npx codemod@latest nuxt/4/migration-recipe
 
 Debounce search input :
 npx nuxi@latest module add vueuse
