@@ -17,7 +17,11 @@
         </h1>
         <p class="text-gray-400">Browse through hundreds of opportunities for tech professionals</p>
       </motion.div>
-
+      
+      <div>
+        {{ job }}
+      </div>
+      
       <!-- Search and filters section -->
       <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{
         duration: 0.5, delay:
@@ -181,6 +185,7 @@
     query: { page, query }
   })
 
+  const { data: job } = await useLazyFetch('/api/jobs/1')
   
   // const { data: candidates } = await useFetch('/api/candidates')
   // console.log(candidates.value)
