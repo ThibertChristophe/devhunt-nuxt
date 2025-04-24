@@ -133,12 +133,14 @@
       </motion.div>
 
       <!-- Job listing -->
-      <div v-if="jobsData && jobsData.jobs.length > 0"
-        :class="[viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : viewMode === 'small' ? 'space-y-3' : 'space-y-6']">
+      <div v-if="jobsData && jobsData.jobs.length > 0" class="self-center">
+        <div
+          :class="[viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : viewMode === 'small' ? 'space-y-3' : 'space-y-6']">
+          <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode"
+            :index="index" />
+        </div>
 
-        <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode" :index="index" />
-
-        <div class="mt-8 flex justify-between items-center">
+        <div class="mt-8 mx-auto flex justify-center">
           <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
         </div>
       </div>
