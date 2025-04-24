@@ -7,7 +7,7 @@ const jobSchema = z.object({
 })
 const PAGE_SIZE = 6
 
-export default defineEventHandler<{ query: { search: string, page: number } }>(async (event) => {
+export default defineEventHandler(async (event) => {
     const result = await getValidatedQuery(event, jobSchema.safeParse); // result.data
     //const query = getQuery(event)
     //const result = await readValidatedBody(event, userSchema.safeParse) // or `.parse` to directly throw an error
