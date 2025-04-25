@@ -118,7 +118,6 @@
                 </div>
             </div>
 
-
             <div class="text-center mt-12 ">
                 <p class="text-gray-400 mb-6">
                     Don't see your preferred language? We have many more opportunities available.

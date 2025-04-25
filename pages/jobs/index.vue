@@ -18,9 +18,9 @@
         <p class="text-gray-400">Browse through hundreds of opportunities for tech professionals</p>
       </motion.div>
 
-      <div>
+      <!-- <div>
         {{ jobsData }}
-      </div>
+      </div> -->
 
       <!-- Search and filters section -->
       <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{
@@ -157,7 +157,7 @@
         </p>
         <UButton label="Clear Filters" variant="subtle" size="xl" :ui="{
           base: 'mt-4 border-purple-500 bg-purple-500/20 text-white hover:text-purple hover:bg-inherit',
-        }" />
+        }" @click="search = ''" />
       </motion.div>
     </div>
   </div>
