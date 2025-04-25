@@ -132,10 +132,90 @@
                                         </div>
                                     </template>
                                     <template #company>
-
+                                        <div class="space-y-6">
+                                            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                                                <UAvatar icon="i-lucide-image" size="lg" class="h-16 w-16" />
+                                                <div>
+                                                    <h3 class="text-xl font-semibold text-white">E-Corps
+                                                    </h3>
+                                                    <div class="flex flex-wrap gap-4 mt-2 text-gray-400 text-sm">
+                                                        <!-- <div v-if="job.companyIndustry" class="flex items-center"> -->
+                                                        <div class="flex items-center">
+                                                            <UIcon name="i-lucide-building" class="mr-1" />
+                                                            <span>Chemical</span>
+                                                        </div>
+                                                        <!-- <div v-if="job.companySize" class="flex items-center"> -->
+                                                        <div class="flex items-center">
+                                                            <UIcon name="i-lucide-users-round" class="mr-1" />
+                                                            <span>50-200</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <UIcon name="i-lucide-earth" class="mr-1" />
+                                                            <ULink to="#">http://website.com</ULink>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="text-gray-300 leading-relaxed">{job.companyDescription}</p>
+                                            </div>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <div class="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
+                                                    <h4 class="text-white font-medium mb-2">Company Culture</h4>
+                                                    <p class="text-gray-400">
+                                                        We value innovation, collaboration, and continuous learning. Our
+                                                        team is diverse and
+                                                        inclusive, with members from all around the world.
+                                                    </p>
+                                                </div>
+                                                <div class="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
+                                                    <h4 class="text-white font-medium mb-2">Work Environment</h4>
+                                                    <p class="text-gray-400">
+                                                        Modern office space with flexible work arrangements. We support
+                                                        remote work and have a hybrid
+                                                        work model.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </template>
                                     <template #process>
+                                        <div class="space-y-6">
+                                            <div>
+                                                <h3 class="text-xl font-semibold text-white mb-3">Application Process
+                                                </h3>
+                                                <div class="relative">
+                                                    <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-700" />
+                                                    <ol class="space-y-6 relative">
+                                                        <!-- < v-for="process in job.process" :key="process.id" class="ml-8"> -->
+                                                        <li class="ml-8">
+                                                            <div
+                                                                class="absolute -left-4 mt-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 border border-gray-700">
+                                                                <span class="text-white text-sm">1</span>
+                                                            </div>
+                                                            <h4 class="text-white font-medium">Interview</h4>
+                                                            <p class="text-gray-400 mt-1">
+                                                                Submit your resume and cover letter
+                                                                through our application form.
 
+                                                            </p>
+                                                        </li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h3 class="text-xl font-semibold text-white mb-3">Timeline</h3>
+                                                <div class="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
+                                                    <div class="flex items-center mb-2">
+                                                        <UIcon name="i-lucide-calendar"
+                                                            class="h-5 w-5 text-purple-500 mr-2" />
+                                                        <span class="text-white">Application Deadline</span>
+                                                    </div>
+                                                    <p class="text-gray-400">{job.deadline}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </template>
                                 </UTabs>
                             </motion.div>
