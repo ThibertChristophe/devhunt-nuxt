@@ -4,9 +4,7 @@
               <div class="text-center z-10">
                   <h1 class="text-3xl font-bold text-white mb-4">Job Not Found</h1>
                   <p class="text-gray-400 mb-6">The job you're looking for doesn't exist or has been removed.</p>
-                  <UButton class="bg-purple-600 hover:bg-purple-700 text-white">
-                    Back to Jobs
-                  </Button>
+                  <UButton label="Back to Jobs" class="bg-purple-600 hover:bg-purple-700 text-white" />
               </div>
           </div>
     </div>
