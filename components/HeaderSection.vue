@@ -68,12 +68,25 @@
           <UButton label="Sign In" color="primary" size="lg" variant="outline" class="text-white cursor-pointer" />
           <template #content>
             <UPageCard class="w-full">
-              <UAuthForm :submit="{
+               <UAuthForm :submit="{
                 label: 'Sign in',
                 size: 'lg',
                 class: 'text-white',
-              }" :schema="schema" title="Login" description="Enter your credentials to access your account."
-                icon="i-lucide-user" :fields="fields" :providers="providers" @submit="onSubmit" />
+              }" :schema="schema" :fields="fields" :providers="providers" title="Welcome back!" icon="i-lucide-user"
+                @submit="onSubmit">
+                <template #description>
+                  Don't have an account? <ULink to="#" class="font-medium">Sign up</ULink>.
+                </template>
+                <template #password-hint>
+                  <ULink to="#" class="font-medium" tabindex="-1">Forgot password?</ULink>
+                </template>
+                <template #validation>
+                  <UAlert color="error" icon="i-lucide-info" title="Error signing in" />
+                </template>
+                <template #footer>
+                  By signing in, you agree to our <ULink to="#" class=" font-medium">Terms of Service</ULink>.
+                </template>
+              </UAuthForm>
             </UPageCard>
           </template>
         </UModal>
