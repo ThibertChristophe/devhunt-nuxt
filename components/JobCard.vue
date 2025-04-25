@@ -2,8 +2,8 @@
   <NuxtLink :to="`/jobs/${job.id}`" class="block">
     <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
       :transition="{ duration: 0.4, delay: 0.1 * (index % 6) }" class="relative group">
-      <div :class="[
-        'cursor-pointer hover:border-purple-500/50 bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-lg transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/10',
+      <UContainer :class="[
+        'cursor-pointer hover:border-purple-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/10',
         viewMode === 'small' ? 'p-3' : 'p-6'
       ]">
         <div :class="['flex justify-between',
@@ -61,7 +61,7 @@
             </UBadge>
           </div>
         </div> -->
-      </div>
+      </UContainer>
     </motion.div>
   </NuxtLink>
 </template>

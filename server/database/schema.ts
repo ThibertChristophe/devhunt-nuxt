@@ -1,3 +1,4 @@
+
 import { pgTable, text, integer, varchar, timestamp, boolean } from "drizzle-orm/pg-core"
 
 export const candidates = pgTable('candidates', {
@@ -14,13 +15,14 @@ export type Candidate = typeof candidates.$inferSelect
 export const jobs = pgTable('jobs', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   title: varchar({ length: 256 }).notNull(),
-  description: text(),
+  description: text().notNull(),
   reference: varchar({ length: 55 }),
   active: boolean().default(false).notNull(),
   salaryMin: integer('salary_min'),
   salaryMax: integer('salary_max'),
   company: varchar({ length: 256 }).notNull(),
   location: varchar({ length: 256 }).notNull(),
+  deadline: timestamp('deadline'),
   createdAt: timestamp('created_at').defaultNow(),
 })
 export type Job = typeof jobs.$inferSelect
