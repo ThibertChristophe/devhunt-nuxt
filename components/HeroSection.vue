@@ -5,6 +5,11 @@
       <SparklesCore id="tsparticlesfullpage" background="transparent" :min-size="0.6" :max-size="1.5"
         :particle-density="3" class="w-full h-full" particle-color="#FFFFFF" />
     </div>
+
+    <div class="absolute inset-0 overflow-hidden z-1">
+      <FloatingPaper :count="6" />
+    </div>
+
     <div class="container mx-auto px-6 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
         <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{ duration: 0.5 }">

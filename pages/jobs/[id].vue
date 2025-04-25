@@ -61,7 +61,8 @@
 
                   <!-- Save & Share & Report -->
                   <div class="flex flex-col sm:flex-row gap-1 w-full md:w-auto">
-                    <UButton :variant="isSaved ? 'soft' : 'outline'" icon="i-lucide-heart">
+                    <UButton :variant="isSaved ? 'soft' : 'outline'" icon="i-lucide-heart"
+                      :class="isSaved ? 'bg-purple-500/20 text-purple-400 border-purple-500' : 'bg-transparent  border-gray-700'">
                       <span v-if="isSaved">Saved</span>
                       <span v-else>Save</span>
                     </UButton>
@@ -80,6 +81,7 @@
                     {{ formatSalary(job.salaryMin) }} - {{ formatSalary(job.salaryMax) }}€
                   </UBadge>
                   <!-- Skills list -->
+                  <!-- <UBadge variant="outline" :class="[`rounded-full border-${skills.color}-500`]"> -->
                   <UBadge variant="outline" class="rounded-full">
                     skill
                   </UBadge>
