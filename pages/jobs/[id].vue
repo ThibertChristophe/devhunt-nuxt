@@ -91,7 +91,7 @@
                 </div>
 
                 <!-- Tabs -->
-                <UTabs :items="items" variant="link" class="gap-4 w-full" :ui="{ trigger: 'flex-1' }">
+                <UTabs :items="items" variant="pill" class="gap-4 w-full" :ui="{ trigger: 'flex-1' }">
                   <template #description>
                     <div class="space-y-6">
                       <div>
