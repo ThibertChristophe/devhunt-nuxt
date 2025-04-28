@@ -133,10 +133,11 @@
           <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode"
             :index="index" />
 
-          <UPageCard v-for="(job) in jobsData?.jobs" :key="job.id" variant="subtle" :title="job.title"
-            :description="job.description"
-            class="transition-all duration-300 bg-gray-700/40 backdrop-blur-sm border border-gray-700 hover:border hover:border-purple-500/50 cursor-pointer">
-            <template #footer>
+          <UPageCard v-for="(job) in jobsData?.jobs" :key="job.id" :ui="{ container: '!p-0' }" variant="subtle"
+            :title="job.title" :class="['transition-all duration-300 hover:border-purple-500/50 cursor-pointer',
+              viewMode === 'small' ? 'p-3' : 'p-6'
+            ]">
+            <template #description>
               <div class="flex items-center">
                 <UIcon name="i-lucide-building" class="h-4 w-4 mr-1" />
                 <span>{{ job.company }}</span>
@@ -145,6 +146,11 @@
                   <UIcon name="i-lucide-map-pin" class="h-4 w-4 mr-1" />
                   <span>{{ job.location }}</span>
                 </div>
+              </div>
+            </template>
+            <template v-if="viewMode === 'list'" #footer>
+              <div class="flex items-center">
+                <p>{{ job.description }}</p>
               </div>
             </template>
           </UPageCard>

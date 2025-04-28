@@ -161,10 +161,10 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <UPageCard title="Company Culture" description=" We value innovation, collaboration, and continuous learning. Our
                             team is diverse and
-                            inclusive, with members from all around the world." variant="subtle" />
+                            inclusive, with members from all around the world." variant="outline" />
                           <UPageCard title="Work Environment" description="Modern office space with flexible work arrangements. We support
                             remote work and have a hybrid
-                            work model." variant="subtle" />
+                            work model." variant="outline" />
                         </div>
                       </div>
                     </template>
@@ -193,7 +193,7 @@
                         </div>
                         <div>
                           <h3 class="text-xl font-semibold text-white mb-3">Timeline</h3>
-                          <UPageCard :description="job.deadline" variant="subtle">
+                          <UPageCard :description="job.deadline" variant="outline">
                             <template #title>
                               <div class="flex items-center mb-2">
                                 <UIcon name="i-lucide-calendar" class="h-5 w-5 text-purple-500 mr-2" />
@@ -302,13 +302,9 @@
                             <p class="text-gray-400 text-sm">{job.companyIndustry}</p>
                           </div>
                         </div>
-
-                        <a href={job.companyWebsite} target="_blank" rel="noopener noreferrer"
-                          class="inline-flex items-center text-purple-400 hover:text-purple-300">
-                          Visit company website
-                          <ArrowUpRight class="ml-1 h-3 w-3" />
-                        </a>
-
+                        <ULink :to="job.company" target="_blank" :external="true"
+                          class="text-purple-400 hover:text-purple-300">Visit
+                          company website</ULink>
                       </div>
                     </div>
                   </div>

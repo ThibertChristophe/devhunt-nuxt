@@ -1,7 +1,7 @@
 export default defineAppConfig({
   ui: {
     container: {
-      base: 'w-full max-w-(--ui-container) mx-auto sm:p-6 lg:p-8 bg-gray-700/40 backdrop-blur-sm border border-gray-700 rounded-lg mb-4',
+      base: 'w-full max-w-(--ui-container) mx-auto p-6 bg-gray-700/40 backdrop-blur-sm border border-gray-700 rounded-lg mb-4',
     },
     colors: {
       primary: 'purple'
@@ -50,9 +50,16 @@ export default defineAppConfig({
   },
   uiPro: {
     pageCard: {
+      slots: {
+        title: 'text-xl',
+      },
       variants: {
         variant: {
           subtle: {
+            root: 'bg-gray-700/40 backdrop-blur-sm border border-gray-700',
+            description: 'text-gray-400',
+          },
+          outline: {
             root: 'bg-gray-900/50 border border-gray-700',
             description: 'text-gray-400',
           }
