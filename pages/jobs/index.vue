@@ -41,8 +41,7 @@
           <USlideover title="Location" description="Choose location" close-icon="i-lucide-arrow-right" :ui="{
             content: 'border-l border-purple-500/80',
           }">
-            <UButton label="Location" color="neutral" variant="subtle"
-              class="h-[50px] bg-gray-800/50 border-gray-700 text-white hover:bg-gray-700" icon="i-lucide-map-pin" />
+            <UButton label="Location" color="neutral" variant="subtle" class="h-[50px] " icon="i-lucide-map-pin" />
             <template #body>
 
               <UCheckbox label="Bruxelles" />
@@ -53,22 +52,19 @@
           <USlideover title="Skills" description="Choose skills" close-icon="i-lucide-arrow-right" :ui="{
             content: 'border-l border-purple-500/80',
           }">
-            <UButton label="Skills" color="neutral" variant="subtle"
-              class="h-[50px] bg-gray-800/50 border-gray-700 text-white hover:bg-gray-700" icon="i-lucide-code" />
+            <UButton label="Skills" color="neutral" variant="subtle" class="h-[50px]" icon="i-lucide-code" />
             <template #body>
-
               <UCheckbox label="Ruby" />
             </template>
           </USlideover>
 
           <!-- Contract type -->
-          <USelect v-model="contractValue" placeholder="Select contract type" size="md" :items="contractTypes"
-            class="cursor-pointer w-[180px] h-[50px] bg-gray-800/50 border-gray-700 text-white" :ui="{
-              item: 'cursor-pointer hover:bg-gray-700 hover:text-purple-500 data-[state=checked]:text-purple-500 data-[highlighted]:bg-inherit data-[highlighted]:text-white'
-            }" />
+          <USelect v-model="contractValue" variant="subtle" placeholder="Select contract type" size="md"
+            :items="contractTypes" class="w-[180px] h-[50px]" />
 
-          <UButton v-if="search" label="Clear Filters" variant="subtle" icon="i-lucide-x"
-            class="h-[50px] text-gray-400 hover:text-purple-500" @click="search = ''" />
+          <!-- Clear Filters -->
+          <UButton v-if="search" label="Clear Filters" variant="ghost" icon="i-lucide-x" class="h-[50px] "
+            @click="search = ''" />
         </div>
       </motion.div>
 
@@ -124,10 +120,8 @@
           <!-- Combo By : -->
           <div class="flex items-center text-gray-400 text-sm">
             <span class="mr-2">By: </span>
-            <USelect v-model="sortBy" placeholder="Select contract type" size="md" :items="sortsType"
-              class="cursor-pointer h-8 text-sm bg-transparent border-gray-700 text-white" :ui="{
-                item: 'cursor-pointer hover:bg-gray-700 hover:text-purple-500 data-[state=checked]:text-purple-500 data-[highlighted]:bg-inherit data-[highlighted]:text-white'
-              }" />
+            <USelect v-model="sortBy" variant="outline" placeholder="Select contract type" size="md" :items="sortsType"
+              class="w-[125px]" />
           </div>
         </div>
       </motion.div>
@@ -141,7 +135,7 @@
         </div>
 
         <div class="mt-8 mx-auto flex justify-center">
-          <UPagination v-model:page="page" :total="jobsData?.pagination?.total_count" :items-per-page="6" />
+          <UPagination v-model:page="page" :total="jobsData?.pagination?.totalCount" :items-per-page="6" />
         </div>
       </div>
 
@@ -155,7 +149,7 @@
         <p class="text-gray-400 max-w-md mx-auto">
           We couldn't find any jobs matching your criteria. Try adjusting your filters or search term.
         </p>
-        <UButton label="Clear Filters" variant="subtle" size="xl" :ui="{
+        <UButton label="Clear Filters" color="primary" variant="subtle" size="xl" :ui="{
           base: 'mt-4 border-purple-500 bg-purple-500/20 text-white hover:text-purple hover:bg-inherit',
         }" @click="search = ''" />
       </motion.div>
@@ -164,39 +158,39 @@
 </template>
 
 <script setup lang="ts">
-  import { motion } from "motion-v";
-  import type { JobsResponse } from '~/types/jobs';
+import { motion } from "motion-v";
+import type { JobsResponse } from '~/types/jobs';
 
-  const viewMode = ref("list")
-  const contractValue = ref<string>('full_time')
-  const sortBy = ref<string>('relevance')
-  const page = ref<number>(1)
-  const search = ref<string>("")
+const viewMode = ref("list")
+const contractValue = ref('full_time')
+const sortBy = ref('relevance')
+const page = ref(1)
+const search = ref("")
 
-  const jobsCountText = computed(() => {
-    const count = jobsData.value?.jobs?.length || 0
-    return `${count} ${count === 1 ? 'job' : 'jobs'} found`
-  })
+const jobsCountText = computed(() => {
+  const count = jobsData.value?.jobs?.length || 0
+  return `${count} ${count === 1 ? 'job' : 'jobs'} found`
+})
 
-  const { data: jobsData } = await useFetch<JobsResponse>('/api/jobs', {
-    query: { page, search }
-  })
+const { data: jobsData } = await useFetch<JobsResponse>('/api/jobs', {
+  query: { page, search }
+})
 
-  watch(search, () => {
-    page.value = 1
-  })
+watch(search, () => { // reset page to 1 when new search
+  page.value = 1
+})
 
 
-  const contractTypes = [
-    { label: 'Full Time', value: 'full_time' },
-    { label: 'Part Time', value: 'part_time' },
-    { label: 'Contract', value: 'contract' },
-    { label: 'Internship', value: 'internship' },
-  ]
-  const sortsType = [
-    { label: 'Relevance', value: 'relevance' },
-    { label: 'Date', value: 'date' },
-    { label: 'Salary', value: 'salary' },
-  ]
+const contractTypes = [
+  { label: 'Full Time', value: 'full_time' },
+  { label: 'Part Time', value: 'part_time' },
+  { label: 'Contract', value: 'contract' },
+  { label: 'Internship', value: 'internship' },
+]
+const sortsType = [
+  { label: 'Relevance', value: 'relevance' },
+  { label: 'Date', value: 'date' },
+  { label: 'Salary', value: 'salary' },
+]
 
 </script>
