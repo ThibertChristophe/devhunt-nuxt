@@ -4,7 +4,7 @@
       :transition="{ duration: 0.4, delay: 0.1 * (index % 6) }" class="relative group">
       <UContainer :class="[
         'cursor-pointer hover:border-purple-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-purple-500/10',
-        viewMode === 'small' ? 'p-3' : 'p-6'
+        viewMode === 'small' ? '!p-3' : ''
       ]">
         <div :class="['flex justify-between',
           viewMode === 'small' ? 'items-center mb-2' : 'flex-col md:flex-row md:items-center mb-4',
@@ -29,8 +29,8 @@
         </div>
 
         <p v-if="viewMode === 'list'" class="text-gray-100 mb-4">{{ job.description }}</p>
-
-        <!-- <div v-if="viewMode !== 'small'" class="flex flex-wrap gap-2 mb-2">
+        <!-- 
+        <div v-if="viewMode !== 'small'" class="flex flex-wrap gap-2 mb-2">
           <UBadge v-for="skill in job.skills" :key="skill.name" variant="outline" class="rounded-full text-white"
             :style="{ borderColor: skill.color }">
             {{ skill.name }}

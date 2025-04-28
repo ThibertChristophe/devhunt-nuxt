@@ -68,7 +68,7 @@
                         <span v-else>Save</span>
                       </UButton>
                       <UTooltip arrow text="Share">
-                        <UButton variant="ghost" icon="i-lucide-share" size="xl" />
+                        <UButton variant="ghost" icon="i-lucide-share-2" size="xl" />
                       </UTooltip>
                       <UTooltip arrow text="Report this offer">
                         <UButton variant="ghost" icon="i-lucide-info" size="xl" />
@@ -146,11 +146,11 @@
                               <!-- <div v-if="job.companySize" class="flex items-center"> -->
                               <div class="flex items-center">
                                 <UIcon name="i-lucide-users-round" class="mr-1" />
-                                <span>50-200</span>
+                                <span>50-200 employees</span>
                               </div>
                               <div class="flex items-center">
                                 <UIcon name="i-lucide-earth" class="mr-1" />
-                                <ULink to="#">http://website.com</ULink>
+                                <ULink to="#" class="text-purple-500">Website</ULink>
                               </div>
                             </div>
                           </div>
@@ -218,18 +218,18 @@
                   <div class="space-y-6">
                     <div class="space-y-2">
                       <p class="text-gray-300">Ready to take the next step in your career?</p>
-                      <UButton label="Apply Now" size="xl" block="true" />
+                      <UButton label="Apply Now" size="xl" :block="true" />
                     </div>
 
                     <USeparator />
 
                     <div class="space-y-3">
                       <h3 class="text-white font-medium">Quick Apply</h3>
-                      <UButton icon="i-lucide-file" label="Upload Resume" variant="outline" block="true" />
+                      <UButton icon="i-lucide-file" label="Upload Resume" variant="outline" :block="true" />
 
                       <div class="relative">
                         <textarea placeholder="Add a cover letter or note to the recruiter..."
-                          class="w-full h-24 px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-y"></textarea>
+                          class="w-full h-24 px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-y" />
                         <UButton icon="i-lucide-send" class="absolute bottom-4 right-2 rounded-full" />
                       </div>
                       <div class="flex gap-2 items-center text-sm">
@@ -296,11 +296,9 @@
                       <div class="space-y-3">
                         <h3 class="text-white font-medium">Company Information</h3>
                         <div class="flex items-center gap-3">
-                          <Avatar class="h-10 w-10 rounded-md border border-gray-700 bg-gray-900">
-
-                          </Avatar>
+                          <Avatar class="h-10 w-10 rounded-md border border-gray-700 bg-gray-900" />
                           <div>
-                            <p class="text-white font-medium">{job.company}</p>
+                            <p class="text-white font-medium">{{ job.company }}</p>
                             <p class="text-gray-400 text-sm">{job.companyIndustry}</p>
                           </div>
                         </div>
@@ -316,9 +314,6 @@
                   </div>
                 </UContainer>
               </motion.div>
-
-
-
             </div>
           </div>
         </div>
@@ -328,63 +323,64 @@
 </template>
 
 <script setup lang="ts">
-import { motion } from "motion-v";
-import type { TabsItem } from '@nuxt/ui'
-
-const route = useRoute()
-const isSaved = ref(false)
-
-// const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
-
-const job: Job = {
-  id: 1,
-  title: 'Job test',
-  description: 'Description',
-  active: true,
-  company: 'E-Corp',
-  location: 'Bruxelles',
-  salaryMin: 50000,
-  salaryMax: 75000,
-  deadline: '23-03-25'
-}
+  import { motion } from "motion-v";
+  import type { TabsItem } from '@nuxt/ui'
 
 
-// id: integer().primaryKey().generatedAlwaysAsIdentity(),
-//   title: varchar({ length: 256 }).notNull(),
-//   description: text().notNull(),
-//   reference: varchar({ length: 55 }),
-//   active: boolean().default(false).notNull(),
-//   salaryMin: integer('salary_min'),
-//   salaryMax: integer('salary_max'),
-//   company: varchar({ length: 256 }).notNull(),
-//   location: varchar({ length: 256 }).notNull(),
-//   deadline: timestamp('deadline'),
-//   createdAt: timestamp('created_at').defaultNow(),
+  //const route = useRoute()
+  const isSaved = ref(false)
 
-const items = [
-  {
-    label: 'Description',
-    description: 'Make changes to your account here. Click save when you\'re done.',
-    icon: 'i-lucide-user',
-    slot: 'description' as const
-  },
-  {
-    label: 'Company',
-    description: 'Change your password here. After saving, you\'ll be logged out.',
-    icon: 'i-lucide-building',
-    slot: 'company' as const
-  },
-  {
-    label: 'Process',
-    description: 'Change your password here. After saving, you\'ll be logged out.',
-    icon: 'i-lucide-lock',
-    slot: 'process' as const
+  // const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
+
+  const job = {
+    id: 1,
+    title: 'Job test',
+    description: 'Description',
+    active: true,
+    company: 'E-Corp',
+    location: 'Bruxelles',
+    salaryMin: 50000,
+    salaryMax: 75000,
+    deadline: '23-03-25'
   }
-] satisfies TabsItem[]
 
 
-function formatSalary(value: number | null): string {
-  return value ? `${Math.round(value / 1000)}k` : '';
-}
+  // id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  //   title: varchar({ length: 256 }).notNull(),
+  //   description: text().notNull(),
+  //   reference: varchar({ length: 55 }),
+  //   active: boolean().default(false).notNull(),
+  //   salaryMin: integer('salary_min'),
+  //   salaryMax: integer('salary_max'),
+  //   company: varchar({ length: 256 }).notNull(),
+  //   location: varchar({ length: 256 }).notNull(),
+  //   deadline: timestamp('deadline'),
+  //   createdAt: timestamp('created_at').defaultNow(),
+
+  const items = [
+    {
+      label: 'Description',
+      description: 'Make changes to your account here. Click save when you\'re done.',
+      icon: 'i-lucide-user',
+      slot: 'description' as const
+    },
+    {
+      label: 'Company',
+      description: 'Change your password here. After saving, you\'ll be logged out.',
+      icon: 'i-lucide-building',
+      slot: 'company' as const
+    },
+    {
+      label: 'Process',
+      description: 'Change your password here. After saving, you\'ll be logged out.',
+      icon: 'i-lucide-lock',
+      slot: 'process' as const
+    }
+  ] satisfies TabsItem[]
+
+
+  function formatSalary(value: number | null): string {
+    return value ? `${Math.round(value / 1000)}k` : '';
+  }
 
 </script>

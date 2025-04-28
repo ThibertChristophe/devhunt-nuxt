@@ -132,6 +132,22 @@
           :class="[viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : viewMode === 'small' ? 'space-y-3' : 'space-y-6']">
           <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode"
             :index="index" />
+
+          <UPageCard v-for="(job) in jobsData?.jobs" :key="job.id" variant="subtle" :title="job.title"
+            :description="job.description"
+            class="transition-all duration-300 bg-gray-700/40 backdrop-blur-sm border border-gray-700 hover:border hover:border-purple-500/50 cursor-pointer">
+            <template #footer>
+              <div class="flex items-center">
+                <UIcon name="i-lucide-building" class="h-4 w-4 mr-1" />
+                <span>{{ job.company }}</span>
+                <div v-if="job.location">
+                  <span class="mx-2">•</span>
+                  <UIcon name="i-lucide-map-pin" class="h-4 w-4 mr-1" />
+                  <span>{{ job.location }}</span>
+                </div>
+              </div>
+            </template>
+          </UPageCard>
         </div>
 
         <div class="mt-8 mx-auto flex justify-center">
@@ -158,39 +174,39 @@
 </template>
 
 <script setup lang="ts">
-import { motion } from "motion-v";
-import type { JobsResponse } from '~/types/jobs';
+  import { motion } from "motion-v";
+  import type { JobsResponse } from '~/types/jobs';
 
-const viewMode = ref("list")
-const contractValue = ref('full_time')
-const sortBy = ref('relevance')
-const page = ref(1)
-const search = ref("")
+  const viewMode = ref("list")
+  const contractValue = ref('full_time')
+  const sortBy = ref('relevance')
+  const page = ref(1)
+  const search = ref("")
 
-const jobsCountText = computed(() => {
-  const count = jobsData.value?.jobs?.length || 0
-  return `${count} ${count === 1 ? 'job' : 'jobs'} found`
-})
+  const jobsCountText = computed(() => {
+    const count = jobsData.value?.jobs?.length || 0
+    return `${count} ${count === 1 ? 'job' : 'jobs'} found`
+  })
 
-const { data: jobsData } = await useFetch<JobsResponse>('/api/jobs', {
-  query: { page, search }
-})
+  const { data: jobsData } = await useFetch<JobsResponse>('/api/jobs', {
+    query: { page, search }
+  })
 
-watch(search, () => { // reset page to 1 when new search
-  page.value = 1
-})
+  watch(search, () => { // reset page to 1 when new search
+    page.value = 1
+  })
 
 
-const contractTypes = [
-  { label: 'Full Time', value: 'full_time' },
-  { label: 'Part Time', value: 'part_time' },
-  { label: 'Contract', value: 'contract' },
-  { label: 'Internship', value: 'internship' },
-]
-const sortsType = [
-  { label: 'Relevance', value: 'relevance' },
-  { label: 'Date', value: 'date' },
-  { label: 'Salary', value: 'salary' },
-]
+  const contractTypes = [
+    { label: 'Full Time', value: 'full_time' },
+    { label: 'Part Time', value: 'part_time' },
+    { label: 'Contract', value: 'contract' },
+    { label: 'Internship', value: 'internship' },
+  ]
+  const sortsType = [
+    { label: 'Relevance', value: 'relevance' },
+    { label: 'Date', value: 'date' },
+    { label: 'Salary', value: 'salary' },
+  ]
 
 </script>

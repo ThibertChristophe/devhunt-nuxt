@@ -24,8 +24,7 @@ export default defineEventHandler(async (event) => {
     const res = {
         jobs: jobs,
         pagination: {
-            current_page: result.data.page,
-            total_count: 2
+            totalCount: 2
         }
     }
     return res
