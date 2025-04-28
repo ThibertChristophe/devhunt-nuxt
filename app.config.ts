@@ -63,8 +63,13 @@ export default defineAppConfig({
             root: 'bg-gray-900/50 border border-gray-700',
             description: 'text-gray-400',
           }
+        },
+        to: {
+          true: {
+            root: 'hover:!bg-gray-700/40',
+          }
         }
-      }
+      },
     },
   }
 })

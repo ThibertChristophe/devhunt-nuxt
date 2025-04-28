@@ -133,10 +133,18 @@
           <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode"
             :index="index" />
 
-          <UPageCard v-for="(job) in jobsData?.jobs" :key="job.id" :ui="{ container: '!p-0' }" variant="subtle"
-            :title="job.title" :class="['transition-all duration-300 hover:border-purple-500/50 cursor-pointer',
+          <UPageCard v-for="(job) in jobsData?.jobs" :key="job.id" :to="`/jobs/${job.id}`" :ui="{ container: '!p-0' }"
+            variant="subtle" :class="['transition-all duration-300 hover:border-purple-500/50 cursor-pointer',
               viewMode === 'small' ? 'p-3' : 'p-6'
             ]">
+            <template #title>
+              <div class="flex items-center justify-between">
+                <h2> {{ job.title }}</h2>
+                <UBadge class="rounded-full bg-purple-600/80 hover:bg-purple-600 text-white">
+                  55k - 66k €
+                </UBadge>
+              </div>
+            </template>
             <template #description>
               <div class="flex items-center">
                 <UIcon name="i-lucide-building" class="h-4 w-4 mr-1" />
@@ -147,10 +155,28 @@
                   <span>{{ job.location }}</span>
                 </div>
               </div>
-            </template>
-            <template v-if="viewMode === 'list'" #footer>
-              <div class="flex items-center">
+              <div v-if="viewMode === 'list'" class="text-white mt-4 flex items-center">
                 <p>{{ job.description }}</p>
+              </div>
+            </template>
+            <template #footer>
+              <div v-if="viewMode !== 'compact'" class="flex flex-wrap gap-2 mb-4">
+                <UBadge variant="outline" class="rounded-full">
+                  skill
+                </UBadge>
+              </div>
+              <div :class="['flex',
+                viewMode === 'compact' ? 'justify-between items-center'
+                  : 'flex-col sm:flex-row justify-between items-start sm:items-center'
+              ]">
+                <div class="flex items-center text-gray-400 text-sm mb-2 sm:mb-0">
+                  <UIcon name="i-lucide-briefcase" class="mr-1" />
+                  <span>{job.type}</span>
+                  <span class="mx-2">•</span>
+                  <UIcon name="i-lucide-clock" class="mr-1" />
+                  <span>Posted {job.posted}</span>
+                </div>
+                <UButton v-if="viewMode !== 'compact'" label="Apply Now" class="z-2" />
               </div>
             </template>
           </UPageCard>
