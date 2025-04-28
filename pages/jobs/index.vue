@@ -130,8 +130,8 @@
       <div v-if="jobsData && jobsData.jobs.length > 0" class="self-center">
         <div
           :class="[viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : viewMode === 'small' ? 'space-y-3' : 'space-y-6']">
-          <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode"
-            :index="index" />
+          <!-- <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode"
+            :index="index" /> -->
 
           <UPageCard v-for="(job) in jobsData?.jobs" :key="job.id" :to="`/jobs/${job.id}`" :ui="{ container: '!p-0' }"
             variant="subtle" :class="['transition-all duration-300 hover:border-purple-500/50 cursor-pointer',
@@ -160,14 +160,14 @@
               </div>
             </template>
             <template #footer>
-              <div v-if="viewMode !== 'compact'" class="flex flex-wrap gap-2 mb-4">
+              <div v-if="viewMode !== 'small'" class="flex flex-wrap gap-2 mb-4">
                 <UBadge variant="outline" class="rounded-full">
-                  skill
+                  skills
                 </UBadge>
               </div>
-              <div :class="['flex',
-                viewMode === 'compact' ? 'justify-between items-center'
-                  : 'flex-col sm:flex-row justify-between items-start sm:items-center'
+              <div :class="['flex flex-col',
+                viewMode === 'small' ? ''
+                  : 'sm:flex-row justify-between items-start sm:items-center'
               ]">
                 <div class="flex items-center text-gray-400 text-sm mb-2 sm:mb-0">
                   <UIcon name="i-lucide-briefcase" class="mr-1" />
@@ -176,7 +176,17 @@
                   <UIcon name="i-lucide-clock" class="mr-1" />
                   <span>Posted {job.posted}</span>
                 </div>
-                <UButton v-if="viewMode !== 'compact'" label="Apply Now" class="z-2" />
+                <UButton v-if="viewMode !== 'small'" label="Apply Now" class="z-2" />
+
+                <div v-if="viewMode === 'small'" class="flex flex-wrap gap-1 mt-2">
+                  <UBadge variant="outline" class="rounded-full">
+                    skill
+                  </UBadge>
+                  <!-- {job.languages.length > 3 && (
+                  <Badge variant="outline" class="text-white border-gray-600 text-xs py-0">
+                    +{job.languages.length - 3}
+                  </Badge> -->
+                </div>
               </div>
             </template>
           </UPageCard>
