@@ -241,12 +241,12 @@
 
 
                       <div class="relative">
-                        <textarea placeholder="Add a cover letter or note to the recruiter..."
-                          class="w-full h-24 px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-y" />
+                        <UTextarea v-model="applyText" placeholder="Add a cover letter or note to the recruiter..."
+                          autoresize size="xl" class="w-full" />
                         <UButton icon="i-lucide-send" class="absolute bottom-4 right-2 rounded-full" />
                       </div>
                       <div class="flex gap-2 items-center text-sm">
-                        <Info class="text-purple-500 w-4 h-4" />
+                        <UIcon name="i-lucide-info" class="text-purple-500 w-4 h-4" />
                         <span class="text-gray-400">It's better to be connected</span>
                       </div>
                     </div>
@@ -275,7 +275,7 @@
                       <div class="space-y-3">
                         <h3 class="text-white font-medium">Company Information</h3>
                         <div class="flex items-center gap-3">
-                          <Avatar class="h-10 w-10 rounded-md border border-gray-700 bg-gray-900" />
+                          <UAvatar class="h-10 w-10 rounded-md border border-gray-700 bg-gray-900" />
                           <div>
                             <p class="text-white font-medium">{{ job.company }}</p>
                             <p class="text-gray-400 text-sm">{job.companyIndustry}</p>
@@ -298,66 +298,53 @@
 </template>
 
 <script setup lang="ts">
-  import { motion } from "motion-v";
-  import type { TabsItem } from '@nuxt/ui'
+import { motion } from "motion-v";
+import type { TabsItem } from '@nuxt/ui'
 
+//const route = useRoute()
+const fileSelected = ref('')
+const applyText = ref('')
+const isSaved = ref(false)
 
-  //const route = useRoute()
-  const fileSelected = ref('')
-  const applyText = ref('')
-  const isSaved = ref(false)
+// const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
 
-  // const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
+const job = {
+  id: 1,
+  title: 'Job test',
+  description: 'Description',
+  active: true,
+  company: 'E-Corp',
+  location: 'Bruxelles',
+  salaryMin: 50000,
+  salaryMax: 75000,
+  deadline: '23-03-25'
+}
 
-  const job = {
-    id: 1,
-    title: 'Job test',
-    description: 'Description',
-    active: true,
-    company: 'E-Corp',
-    location: 'Bruxelles',
-    salaryMin: 50000,
-    salaryMax: 75000,
-    deadline: '23-03-25'
+//Tabs
+const items = [
+  {
+    label: 'Description',
+    description: 'Make changes to your account here. Click save when you\'re done.',
+    icon: 'i-lucide-user',
+    slot: 'description' as const
+  },
+  {
+    label: 'Company',
+    description: 'Change your password here. After saving, you\'ll be logged out.',
+    icon: 'i-lucide-building',
+    slot: 'company' as const
+  },
+  {
+    label: 'Process',
+    description: 'Change your password here. After saving, you\'ll be logged out.',
+    icon: 'i-lucide-lock',
+    slot: 'process' as const
   }
+] satisfies TabsItem[]
 
 
-  // id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  //   title: varchar({ length: 256 }).notNull(),
-  //   description: text().notNull(),
-  //   reference: varchar({ length: 55 }),
-  //   active: boolean().default(false).notNull(),
-  //   salaryMin: integer('salary_min'),
-  //   salaryMax: integer('salary_max'),
-  //   company: varchar({ length: 256 }).notNull(),
-  //   location: varchar({ length: 256 }).notNull(),
-  //   deadline: timestamp('deadline'),
-  //   createdAt: timestamp('created_at').defaultNow(),
-
-  const items = [
-    {
-      label: 'Description',
-      description: 'Make changes to your account here. Click save when you\'re done.',
-      icon: 'i-lucide-user',
-      slot: 'description' as const
-    },
-    {
-      label: 'Company',
-      description: 'Change your password here. After saving, you\'ll be logged out.',
-      icon: 'i-lucide-building',
-      slot: 'company' as const
-    },
-    {
-      label: 'Process',
-      description: 'Change your password here. After saving, you\'ll be logged out.',
-      icon: 'i-lucide-lock',
-      slot: 'process' as const
-    }
-  ] satisfies TabsItem[]
-
-
-  function formatSalary(value: number | null): string {
-    return value ? `${Math.round(value / 1000)}k` : '';
-  }
+function formatSalary(value: number | null): string {
+  return value ? `${Math.round(value / 1000)}k` : '';
+}
 
 </script>
