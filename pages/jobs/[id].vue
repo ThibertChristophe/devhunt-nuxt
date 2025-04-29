@@ -225,7 +225,20 @@
 
                     <div class="space-y-3">
                       <h3 class="text-white font-medium">Quick Apply</h3>
-                      <UButton icon="i-lucide-file" label="Upload Resume" variant="outline" :block="true" />
+
+                      <!-- Modal file select -->
+                      <UModal title="Select a file" description="Accepted formats: PDF, DOC, DOCX">
+                        <UButton icon="i-lucide-file" label="Upload Resume" variant="outline" :block="true" />
+                        <template #body>
+                          <div class="space-y-2">
+                            <UInput v-model="fileSelected" type="file" />
+                          </div>
+                        </template>
+                        <template #footer>
+                          <UButton label="Ok" color="success" />
+                        </template>
+                      </UModal>
+
 
                       <div class="relative">
                         <textarea placeholder="Add a cover letter or note to the recruiter..."
@@ -237,40 +250,6 @@
                         <span class="text-gray-400">It's better to be connected</span>
                       </div>
                     </div>
-                    <!-- <div open={isResumeModalOpen} onOpenChange={setIsResumeModalOpen}>
-                      <div class="bg-gray-900 border border-gray-800 text-white">
-                        <div>
-                          <div class="text-xl font-semibold">Upload Your Resume</div>
-                        </div>
-                        <div class="space-y-4 py-4">
-                          <div class="space-y-2">
-                            <Label htmlFor="resume" class="text-white">
-                              Select File
-                            </Label>
-                            <UInput id="resume" type="file" accept=".pdf,.doc,.docx"
-                              class="bg-gray-900 border-gray-700 text-white" />
-                            <p class="text-xs text-gray-400">Accepted formats: PDF, DOC, DOCX</p>
-                          </div>
-
-                          {selectedFile && (
-                          <div class="flex items-center gap-2 p-2 bg-gray-900/50 rounded border border-gray-700">
-                            <FileText class="h-4 w-4 text-purple-400" />
-                            <span class="text-sm text-gray-300 truncate">{selectedFile.name}</span>
-                          </div>
-                          )}
-                        </div>
-                        <div>
-                          <div asChild>
-                            <UButton variant="outline" class="border-gray-700 text-white">
-                              Cancel
-                            </UButton>
-                          </div>
-                          <UButton class="bg-purple-600 hover:bg-purple-700 text-white" disabled={!selectedFile}>
-                            Upload
-                          </UButton>
-                        </div>
-                      </div>
-                    </div> -->
 
                     <USeparator />
 
@@ -324,6 +303,8 @@
 
 
   //const route = useRoute()
+  const fileSelected = ref('')
+  const applyText = ref('')
   const isSaved = ref(false)
 
   // const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
