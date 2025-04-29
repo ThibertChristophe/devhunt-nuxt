@@ -295,7 +295,7 @@
                           <UAvatar class="h-10 w-10 rounded-md border border-gray-700 bg-gray-900" />
                           <div>
                             <p class="text-white font-medium">{{ job.company }}</p>
-                            <p class="text-gray-400 text-sm">{job.companyIndustry}</p>
+                            <p class="text-gray-400 text-sm">Chemical industry</p>
                           </div>
                         </div>
                         <ULink :to="job.company" target="_blank" :external="true"

@@ -6,6 +6,18 @@ export default defineAppConfig({
     colors: {
       primary: 'purple'
     },
+    input: {
+      variants: {
+        variant: {
+          subtle: 'bg-gray-800/50 border-gray-700 placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent',
+        },
+        size: {
+          xl: {
+            base: 'px-4 py-4'
+          }
+        }
+      }
+    },
     button: {
       slots: {
         base: 'cursor-pointer'
