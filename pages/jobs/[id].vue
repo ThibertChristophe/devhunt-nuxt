@@ -42,37 +42,56 @@
                       </h1>
                       <div class="flex flex-wrap items-center gap-3 text-gray-400">
                         <div class="flex items-center">
-                          <UIcon name="i-lucide-building" class="mr-1" />
+                          <UIcon name="i-lucide-building" class="mr-2" />
                           <span>{{ job.company }}</span>
                         </div>
                         <div class="flex items-center">
-                          <UIcon name="i-lucide-map-pin" class="mr-1" />
+                          <UIcon name="i-lucide-map-pin" class="mr-2" />
                           <span>Bruxelles</span>
                         </div>
                         <div class="flex items-center">
-                          <UIcon name="i-lucide-briefcase" class="mr-1" />
+                          <UIcon name="i-lucide-briefcase" class="mr-2" />
                           <span>Full Time</span>
                         </div>
                         <div class="flex items-center">
-                          <UIcon name="i-lucide-clock" class="mr-1" />
+                          <UIcon name="i-lucide-clock" class="mr-2" />
                           <span>Posted 23h ago</span>
                         </div>
                       </div>
                     </div>
 
                     <!-- Save & Share & Report -->
-                    <div class="flex flex-col sm:flex-row gap-1 w-full md:w-auto">
+                    <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
                       <UButton :variant="isSaved ? 'soft' : 'outline'" icon="i-lucide-heart"
-                        :class="isSaved ? 'bg-purple-500/20 text-purple-400 border-purple-500' : 'bg-transparent  border-gray-700'">
+                        :class="isSaved ? 'bg-purple-500/20 text-purple-400 border-purple-500' : 'bg-transparent  border-gray-700'"
+                        @click="isSaved = !isSaved">
                         <span v-if="isSaved">Saved</span>
                         <span v-else>Save</span>
                       </UButton>
                       <UTooltip arrow text="Share">
                         <UButton variant="ghost" icon="i-lucide-share-2" size="xl" />
                       </UTooltip>
-                      <UTooltip arrow text="Report this offer">
-                        <UButton variant="ghost" icon="i-lucide-info" size="xl" />
-                      </UTooltip>
+
+                      <!-- Modal report -->
+                      <UModal v-model:open="openModal" title="Report this offer"
+                        :ui="{ body: 'space-y-4', footer: 'justify-end' }">
+                        <UTooltip arrow text="Report this offer">
+                          <UButton variant="ghost" icon="i-lucide-info" size="xl" />
+                        </UTooltip>
+
+                        <template #body>
+                          <p class="text-gray-400 mb-2">Please select a reason for reporting this job offer:</p>
+                          <USelect v-model="reportSelected" :items="reportItem" class="w-full" />
+                          <p class="text-gray-400 mb-2">Additionnal details:</p>
+                          <UTextarea v-model="reportReason" autoresize placeholder="Add a comment..." size="xl"
+                            class="w-full" />
+                        </template>
+
+                        <template #footer>
+                          <UButton label="Cancel" color="neutral" variant="outline" @click="openModal = false" />
+                          <UButton label="Submit" />
+                        </template>
+                      </UModal>
                     </div>
                   </div>
 
@@ -197,7 +216,7 @@
                             <template #title>
                               <div class="flex items-center mb-2">
                                 <UIcon name="i-lucide-calendar" class="h-5 w-5 text-purple-500 mr-2" />
-                                <span class="text-white">Application Deadline</span>
+                                <span class="text-white text-sm">Application Deadline</span>
                               </div>
                             </template>
                           </UPageCard>
@@ -225,7 +244,6 @@
 
                     <div class="space-y-3">
                       <h3 class="text-white font-medium">Quick Apply</h3>
-
                       <!-- Modal file select -->
                       <UModal title="Select a file" description="Accepted formats: PDF, DOC, DOCX">
                         <UButton icon="i-lucide-file" label="Upload Resume" variant="outline" :block="true" />
@@ -235,10 +253,9 @@
                           </div>
                         </template>
                         <template #footer>
-                          <UButton label="Ok" color="success" />
+                          <UButton label="Ok" />
                         </template>
                       </UModal>
-
 
                       <div class="relative">
                         <UTextarea v-model="applyText" placeholder="Add a cover letter or note to the recruiter..."
@@ -290,6 +307,49 @@
                 </UContainer>
               </motion.div>
             </div>
+
+            <!-- Similar jobs -->
+            <div class="lg:col-span-1">
+              <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
+                :transition="{ duration: 0.5, delay: 0.1 }">
+                <UContainer>
+                  <h2 class=" text-xl font-bold text-white mb-4">Similar Jobs</h2>
+                  <div class="space-y-2">
+                    <UPageCard variant="outline"
+                      class="transition-all duration-300 hover:border-purple-500/50 cursor-pointer">
+                      <template #title>
+                        <div class="flex items-start gap-4">
+                          <UAvatar class="h-12 w-12 rounded-md " />
+                          <div>
+                            <h4> {{ job.title }}</h4>
+                            <div class="flex flex-wrap items-center gap-2 text-gray-400 text-sm mt-1">
+                              <span>Total Energy</span>
+                              <span>•</span>
+                              <span>Liege</span>
+                            </div>
+                          </div>
+                        </div>
+                      </template>
+                      <template #description>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                          <UBadge key={lang.name} variant="outline">
+                            skill
+                          </UBadge>
+                        </div>
+                      </template>
+                      <template #footer>
+                        <div class="flex justify-between items-center">
+                          <span class="text-gray-400 text-sm">Full Time</span>
+                          <UBadge class="bg-purple-600/80 text-white">50k - 60k€</UBadge>
+                        </div>
+                      </template>
+                    </UPageCard>
+                  </div>
+                </UContainer>
+              </motion.div>
+            </div>
+            <!-- Similar jobs END -->
+
           </div>
         </div>
       </div>
@@ -298,53 +358,64 @@
 </template>
 
 <script setup lang="ts">
-import { motion } from "motion-v";
-import type { TabsItem } from '@nuxt/ui'
+  import { motion } from "motion-v";
+  import type { TabsItem } from '@nuxt/ui'
 
-//const route = useRoute()
-const fileSelected = ref('')
-const applyText = ref('')
-const isSaved = ref(false)
+  //const route = useRoute()
+  const fileSelected = ref('')
+  const applyText = ref('')
+  const isSaved = ref(false)
+  const reportSelected = ref('')
+  const reportReason = ref('')
+  const openModal = ref(false)
 
-// const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
+  // const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
 
-const job = {
-  id: 1,
-  title: 'Job test',
-  description: 'Description',
-  active: true,
-  company: 'E-Corp',
-  location: 'Bruxelles',
-  salaryMin: 50000,
-  salaryMax: 75000,
-  deadline: '23-03-25'
-}
-
-//Tabs
-const items = [
-  {
-    label: 'Description',
-    description: 'Make changes to your account here. Click save when you\'re done.',
-    icon: 'i-lucide-user',
-    slot: 'description' as const
-  },
-  {
-    label: 'Company',
-    description: 'Change your password here. After saving, you\'ll be logged out.',
-    icon: 'i-lucide-building',
-    slot: 'company' as const
-  },
-  {
-    label: 'Process',
-    description: 'Change your password here. After saving, you\'ll be logged out.',
-    icon: 'i-lucide-lock',
-    slot: 'process' as const
+  const job = {
+    id: 1,
+    title: 'Job test',
+    description: 'Description',
+    active: true,
+    company: 'E-Corp',
+    location: 'Bruxelles',
+    salaryMin: 50000,
+    salaryMax: 75000,
+    deadline: '23-03-25'
   }
-] satisfies TabsItem[]
+
+  //Tabs
+  const items = [
+    {
+      label: 'Description',
+      description: 'Make changes to your account here. Click save when you\'re done.',
+      icon: 'i-lucide-user',
+      slot: 'description' as const
+    },
+    {
+      label: 'Company',
+      description: 'Change your password here. After saving, you\'ll be logged out.',
+      icon: 'i-lucide-building',
+      slot: 'company' as const
+    },
+    {
+      label: 'Process',
+      description: 'Change your password here. After saving, you\'ll be logged out.',
+      icon: 'i-lucide-lock',
+      slot: 'process' as const
+    }
+  ] satisfies TabsItem[]
 
 
-function formatSalary(value: number | null): string {
-  return value ? `${Math.round(value / 1000)}k` : '';
-}
+  function formatSalary(value: number | null): string {
+    return value ? `${Math.round(value / 1000)}k` : '';
+  }
+
+  const reportItem = [
+    { label: 'Fake or fraudulent job', value: 'fake' },
+    { label: 'Misleading information', value: 'misleading' },
+    { label: 'Offensive content', value: 'offensive' },
+    { label: 'Duplicate posting', value: 'duplicate' },
+    { label: 'Other', value: 'other' },
+  ]
 
 </script>

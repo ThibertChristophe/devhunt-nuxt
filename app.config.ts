@@ -62,6 +62,9 @@ export default defineAppConfig({
           outline: {
             root: 'bg-gray-900/50 border border-gray-700',
             description: 'text-gray-400',
+          },
+          soft: {
+            root: 'border border-gray-700'
           }
         },
         to: {
