@@ -1,4 +1,4 @@
-import type { Job } from "~/server/database/schema";
+import type { JobWithSkills } from "~/server/database/schema";
 
 export interface Pagination {
   current_page: number;
@@ -9,6 +9,6 @@ export interface Pagination {
 }
 
 export interface JobsResponse {
-  jobs: Job[]; // Le '?' indique que la propriété peut être undefined
+  jobs: JobWithSkills[]; // Le '?' indique que la propriété peut être undefined
   pagination: Pagination; // Le '?' indique que la propriété peut être undefined
 }

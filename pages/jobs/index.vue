@@ -70,7 +70,7 @@
 
       <!-- Active filter section -->
       <motion.div :initial="{ opacity: 0, y: -10 }" :animate="{ opacity: 1, y: 0 }" class="flex flex-wrap gap-2 mb-4">
-        <!-- v-for location -->
+        <!-- v-for location selected -->
         <motion.div key={location} :initial="{ opacity: 0, scale: 0.8 }" :animate="{ opacity: 1, scale: 1 }"
           :exit="{ opacity: 0, scale: 0.8 }">
           <UBadge variant="outline" icon="i-lucide-map-pin" trailing-icon="i-lucide-x"
@@ -79,7 +79,7 @@
           </UBadge>
         </motion.div>
 
-        <!-- v-for type -->
+        <!-- v-for type selected -->
         <motion.div key={type} :initial="{ opacity: 0, scale: 0.8 }" :animate="{ opacity: 1, scale: 1 }"
           :exit="{ opacity: 0, scale: 0.8 }">
           <UBadge variant="outline" icon="i-lucide-briefcase-business" trailing-icon="i-lucide-x"
@@ -88,7 +88,7 @@
           </UBadge>
         </motion.div>
 
-        <!-- v-for skills -->
+        <!-- v-for skills selected -->
         <motion.div key={skill} :initial="{ opacity: 0, scale: 0.8 }" :animate="{ opacity: 1, scale: 1 }"
           :exit="{ opacity: 0, scale: 0.8 }">
           <UBadge variant="outline" icon="i-lucide-code" trailing-icon="i-lucide-x"
@@ -161,8 +161,8 @@
               </template>
               <template #footer>
                 <div v-if="viewMode !== 'small'" class="flex flex-wrap gap-2 mb-4">
-                  <UBadge variant="outline" class="rounded-full">
-                    skills
+                  <UBadge v-for="skill in job.skills" :key="skill.id" variant="outline" class="rounded-full">
+                    {{ skill.name }}
                   </UBadge>
                 </div>
                 <div :class="['flex flex-col',
@@ -179,8 +179,8 @@
                   <UButton v-if="viewMode !== 'small'" label="Apply Now" class="z-2" />
 
                   <div v-if="viewMode === 'small'" class="flex flex-wrap gap-1 mt-2">
-                    <UBadge variant="outline" class="rounded-full">
-                      skill
+                    <UBadge v-for="skill in job.skills" :key="skill.id" variant="outline" class="rounded-full">
+                      {{ skill.name }}
                     </UBadge>
                     <!-- {job.languages.length > 3 && (
                   <Badge variant="outline" class="text-white border-gray-600 text-xs py-0">

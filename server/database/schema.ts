@@ -1,5 +1,6 @@
 
-import { pgTable, text, integer, varchar, timestamp, boolean } from "drizzle-orm/pg-core"
+import { relations } from "drizzle-orm"
+import { pgTable, text, integer, varchar, timestamp, boolean, primaryKey } from "drizzle-orm/pg-core"
 
 export const candidates = pgTable('candidates', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -26,6 +27,12 @@ export const jobs = pgTable('jobs', {
   createdAt: timestamp('created_at').defaultNow(),
 })
 export type Job = typeof jobs.$inferSelect
+export type JobWithSkills = Job & {
+  skills: Skill[];
+};
+export const jobsRelations = relations(jobs, ({ many }) => ({
+  jobsToSkills: many(jobsToSkills),
+}));
 
 
 export const skills = pgTable('skills', {
@@ -35,3 +42,32 @@ export const skills = pgTable('skills', {
   createdAt: timestamp('created_at').defaultNow(),
 })
 export type Skill = typeof skills.$inferSelect
+export const skillsRelations = relations(skills, ({ many }) => ({
+  jobsToSkills: many(jobsToSkills),
+}));
+
+
+export const jobsToSkills = pgTable(
+  'jobs_to_skills',
+  {
+    jobId: integer('job_id')
+      .notNull()
+      .references(() => jobs.id),
+    skillId: integer('skill_id')
+      .notNull()
+      .references(() => skills.id),
+  },
+  (t) => [
+    primaryKey({ columns: [t.jobId, t.skillId] })
+  ],
+);
+export const jobsToSkillsRelations = relations(jobsToSkills, ({ one }) => ({
+  skill: one(skills, {
+    fields: [jobsToSkills.skillId],
+    references: [skills.id],
+  }),
+  job: one(jobs, {
+    fields: [jobsToSkills.jobId],
+    references: [jobs.id],
+  }),
+}));
