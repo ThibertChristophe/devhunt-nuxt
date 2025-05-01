@@ -18,10 +18,6 @@
         <p class="text-gray-400">Browse through hundreds of opportunities for tech professionals</p>
       </motion.div>
 
-      <!-- <div>
-        {{ jobsData }}
-      </div> -->
-
       <!-- Search and filters section -->
       <motion.div :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{
         duration: 0.5, delay:
@@ -31,8 +27,8 @@
           <div class="relative flex-grow">
             <!-- Searchbar -->
             <UInput v-model="search" type="text" name="keyword" placeholder="Search for jobs, skills, companies..."
-              icon="i-lucide-search" :ui="{
-                base: 'w-full px-4 py-4 pr-10 rounded-lg bg-gray-800/50  border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent',
+              icon="i-lucide-search" size="xl" :ui="{
+                base: 'w-full pr-10 rounded-lg bg-gray-800/50  border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent',
                 root: 'w-full ',
               }" />
           </div>
@@ -41,7 +37,7 @@
           <USlideover title="Location" description="Choose location" close-icon="i-lucide-arrow-right" :ui="{
             content: 'border-l border-purple-500/80',
           }">
-            <UButton label="Location" color="neutral" variant="subtle" class="h-[50px] " icon="i-lucide-map-pin" />
+            <UButton label="Location" color="neutral" variant="subtle" icon="i-lucide-map-pin" />
             <template #body>
 
               <UCheckbox label="Bruxelles" />
@@ -59,8 +55,8 @@
           </USlideover>
 
           <!-- Contract type -->
-          <USelect v-model="contractValue" variant="subtle" placeholder="Select contract type" size="md"
-            :items="contractTypes" class="w-[180px] h-[50px]" />
+          <USelect v-model="contract" variant="subtle" placeholder="Select contract type" size="md"
+            :items="contractList" class="w-[180px] h-[50px]" />
 
           <!-- Clear Filters -->
           <UButton v-if="search" label="Clear Filters" variant="ghost" icon="i-lucide-x" class="h-[50px] "
@@ -130,67 +126,8 @@
       <div v-if="jobsData && jobsData.jobs.length > 0" class="self-center">
         <div
           :class="[viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : viewMode === 'small' ? 'space-y-3' : 'space-y-6']">
-          <!-- <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode"
-            :index="index" /> -->
-          <motion.div v-for="(job, index) in jobsData?.jobs" :key="job.id" :initial="{ opacity: 0, y: 20 }"
-            :animate="{ opacity: 1, y: 0 }" :transition="{ duration: 0.4, delay: 0.1 * (index % 6) }">
-            <UPageCard :to="`/jobs/${job.id}`" :ui="{ container: '!p-0' }" variant="subtle" :class="['transition-all duration-300 hover:border-purple-500/50 cursor-pointer',
-              viewMode === 'small' ? 'p-3' : 'p-6'
-            ]">
-              <template #title>
-                <div class="flex items-center justify-between">
-                  <h2> {{ job.title }}</h2>
-                  <UBadge class="rounded-full bg-purple-600/80 hover:bg-purple-600 text-white">
-                    55k - 66k €
-                  </UBadge>
-                </div>
-              </template>
-              <template #description>
-                <div class="flex items-center">
-                  <UIcon name="i-lucide-building" class="h-4 w-4 mr-1" />
-                  <span>{{ job.company }}</span>
-                  <div v-if="job.location">
-                    <span class="mx-2">•</span>
-                    <UIcon name="i-lucide-map-pin" class="h-4 w-4 mr-1" />
-                    <span>{{ job.location }}</span>
-                  </div>
-                </div>
-                <div v-if="viewMode === 'list'" class="text-white mt-4 flex items-center">
-                  <p>{{ job.description }}</p>
-                </div>
-              </template>
-              <template #footer>
-                <div v-if="viewMode !== 'small'" class="flex flex-wrap gap-2 mb-4">
-                  <UBadge v-for="skill in job.skills" :key="skill.id" variant="outline" class="rounded-full">
-                    {{ skill.name }}
-                  </UBadge>
-                </div>
-                <div :class="['flex flex-col',
-                  viewMode === 'small' ? ''
-                    : 'sm:flex-row justify-between items-start sm:items-center'
-                ]">
-                  <div class="flex items-center text-gray-400 text-sm mb-2 sm:mb-0">
-                    <UIcon name="i-lucide-briefcase" class="mr-1" />
-                    <span>{job.type}</span>
-                    <span class="mx-2">•</span>
-                    <UIcon name="i-lucide-clock" class="mr-1" />
-                    <span>Posted {job.posted}</span>
-                  </div>
-                  <UButton v-if="viewMode !== 'small'" label="Apply Now" class="z-2" />
-
-                  <div v-if="viewMode === 'small'" class="flex flex-wrap gap-1 mt-2">
-                    <UBadge v-for="skill in job.skills" :key="skill.id" variant="outline" class="rounded-full">
-                      {{ skill.name }}
-                    </UBadge>
-                    <!-- {job.languages.length > 3 && (
-                  <Badge variant="outline" class="text-white border-gray-600 text-xs py-0">
-                    +{job.languages.length - 3}
-                  </Badge> -->
-                  </div>
-                </div>
-              </template>
-            </UPageCard>
-          </motion.div>
+          <JobCard v-for="(job, index) in jobsData?.jobs" :key="job.id" :job="job" :view-mode="viewMode"
+            :index="index" />
         </div>
 
         <div class="mt-8 mx-auto flex justify-center">
@@ -221,7 +158,7 @@
   import type { JobsResponse } from '~/types/jobs';
 
   const viewMode = ref("list")
-  const contractValue = ref('full_time')
+  const contract = ref('full_time')
   const sortBy = ref('relevance')
   const page = ref(1)
   const search = ref("")
@@ -240,7 +177,7 @@
   })
 
 
-  const contractTypes = [
+  const contractList = [
     { label: 'Full Time', value: 'full_time' },
     { label: 'Part Time', value: 'part_time' },
     { label: 'Contract', value: 'contract' },
