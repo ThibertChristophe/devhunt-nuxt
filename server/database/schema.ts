@@ -23,7 +23,7 @@ export const jobs = pgTable('jobs', {
   salaryMax: integer('salary_max'),
   company: varchar({ length: 256 }).notNull(),
   location: varchar({ length: 256 }).notNull(),
-  deadline: timestamp('deadline'),
+  deadline: timestamp('deadline').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 })
 export type Job = typeof jobs.$inferSelect

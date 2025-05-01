@@ -62,21 +62,21 @@
 
                     <!-- Save & Share & Report -->
                     <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-                      <UButton :variant="isSaved ? 'soft' : 'outline'" icon="i-lucide-heart"
+                      <UButton :variant="isSaved ? 'soft' : 'outline'" size="lg" icon="i-lucide-heart"
                         :class="isSaved ? 'bg-purple-500/20 text-purple-400 border-purple-500' : 'bg-transparent  border-gray-700'"
                         @click="isSaved = !isSaved">
                         <span v-if="isSaved">Saved</span>
                         <span v-else>Save</span>
                       </UButton>
                       <UTooltip arrow text="Share">
-                        <UButton variant="ghost" icon="i-lucide-share-2" size="xl" />
+                        <UButton variant="ghost" icon="i-lucide-share-2" size="lg" />
                       </UTooltip>
 
                       <!-- Modal report -->
                       <UModal v-model:open="openModal" title="Report this offer"
                         :ui="{ body: 'space-y-4', footer: 'justify-end' }">
                         <UTooltip arrow text="Report this offer">
-                          <UButton variant="ghost" icon="i-lucide-info" size="xl" />
+                          <UButton variant="ghost" icon="i-lucide-info" size="lg" />
                         </UTooltip>
 
                         <template #body>
@@ -237,7 +237,7 @@
                   <div class="space-y-6">
                     <div class="space-y-2">
                       <p class="text-gray-300">Ready to take the next step in your career?</p>
-                      <UButton label="Apply Now" size="xl" :block="true" />
+                      <UButton label="Apply Now" size="lg" :block="true" />
                     </div>
 
                     <USeparator />
@@ -361,7 +361,7 @@
   import { motion } from "motion-v";
   import type { TabsItem } from '@nuxt/ui'
 
-  //const route = useRoute()
+  const route = useRoute()
   const fileSelected = ref('')
   const applyText = ref('')
   const isSaved = ref(false)
@@ -369,19 +369,19 @@
   const reportReason = ref('')
   const openModal = ref(false)
 
-  // const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
+  const { data: job } = useFetch(`/api/jobs/${route.params.id}`)
 
-  const job = {
-    id: 1,
-    title: 'Job test',
-    description: 'Description',
-    active: true,
-    company: 'E-Corp',
-    location: 'Bruxelles',
-    salaryMin: 50000,
-    salaryMax: 75000,
-    deadline: '23-03-25'
-  }
+  // const job = {
+  //   id: 1,
+  //   title: 'Job test',
+  //   description: 'Description',
+  //   active: true,
+  //   company: 'E-Corp',
+  //   location: 'Bruxelles',
+  //   salaryMin: 50000,
+  //   salaryMax: 75000,
+  //   deadline: '23-03-25'
+  // }
 
   //Tabs
   const items = [
