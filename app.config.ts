@@ -16,7 +16,7 @@ export default defineAppConfig({
         },
         size: {
           xl: {
-            base: 'px-3 py-3 h-[50px]'
+            base: 'px-3 py-3 h-[50px] text-sm'
           }
         }
       }

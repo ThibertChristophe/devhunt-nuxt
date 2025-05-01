@@ -145,7 +145,7 @@
         <p class="text-gray-400 max-w-md mx-auto">
           We couldn't find any jobs matching your criteria. Try adjusting your filters or search term.
         </p>
-        <UButton label="Clear Filters" color="primary" variant="subtle" size="xl" :ui="{
+        <UButton label="Clear Filters" color="primary" variant="subtle" size="lg" :ui="{
           base: 'mt-4 border-purple-500 bg-purple-500/20 text-white hover:text-purple hover:bg-inherit',
         }" @click="search = ''" />
       </motion.div>
